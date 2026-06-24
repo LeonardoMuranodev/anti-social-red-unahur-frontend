@@ -1,7 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Dumpster from '../assets/hero.png'
 
 function Welcome() {
   return (
@@ -20,8 +19,13 @@ function Welcome() {
          </h2>
          <button>Vení y decilo de frente</button>
         </Col>
+<<<<<<< HEAD
         <Col sm={4} className='d-none d-sm-flex justify-content-start'>
             <img src={Dumpster} className='img-fluid object-fit-contain'/>
+=======
+        <Col sm={4} className='d-none d-sm-block'>
+            fotito de un basurero en llamas
+>>>>>>> 18c1155 (feat maquetado inicial de pagina de bienvenida)
         </Col>
       </Row>
       <br/>
