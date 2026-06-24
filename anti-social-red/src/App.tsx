@@ -1,7 +1,9 @@
+import Welcome from "./pages/welcome";
+
 function App() {
   return (
     <>
-      <p>ToDo: página de inicio (sin login)</p>
+      <Welcome/>
     </>
   )
 }
