@@ -6,7 +6,6 @@ import Error404 from "./pages/Error404";
 import PostDetail from "./pages/PostDetail";
 
 
-
 function App() {
 
   return (<>
