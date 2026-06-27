@@ -17,9 +17,14 @@
     --color-secondary-background-darker: #6F4522;
 
     --color-primary-lighter:    #EC7154;
+
     --color-primary-light:      #DC4927;
+
     --color-primary:            #B32F10;
+    --color-primary-rgb:      179, 47, 16;
+
     --color-primary-dark:       #911C00;
+
     --color-primary-darker:     #671400;
 
     --color-success-lighter:    #D8E6BA;
@@ -28,6 +33,9 @@
     --color-success-dark:       #63783B;
     --color-success-darker:     #506820;
 
+    --bs-primary: var(--color-primary-background-darker);
+    --bs-primary-rgb: var(--color-primary-rgb);
+    --bs-success:var(--color-success);
 }
 
 body{

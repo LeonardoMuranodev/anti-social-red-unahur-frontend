@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Dumpster from '../assets/hero.png';
+import { Button } from 'react-bootstrap';
 
 function Welcome() {
   return (
@@ -18,7 +19,7 @@ function Welcome() {
          <h2>
             ¿te parece horrible?
          </h2>
-         <button>Vení y decilo de frente</button>
+         <Button>Vení y decilo de frente</Button>
         </Col>
         <Col sm={5} className='landing-image d-none d-sm-block'>
             <img src={Dumpster} className='img-fluid object-fit-contain'/>
@@ -78,7 +79,7 @@ function Welcome() {
       <Row>
         <Col className='landing-text'>
           <h1>¿Listo para mandar todo a la #$&*%?</h1>
-          <button>Unirse al bardo</button>
+          <Button>Unirse al bardo</Button>
         </Col>
       </Row>
       <br/>
