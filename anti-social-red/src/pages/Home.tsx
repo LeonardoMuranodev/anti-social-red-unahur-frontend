@@ -5,14 +5,14 @@ import Col from 'react-bootstrap/Col';
 function Home() {
 
   return (<>
-  <Container>
+  <Container fluid>
     <Row>
-      <Col xs={{order:5}} classname='mainContent'>nav lateral</Col>
-      <Col sm={10} md={8} classname='mainContent'>feed y demas cosas</Col>
-      <Col classname='mainContent'>icono de usuario</Col>
+      <Col className='main-content d-none d-sm-block'>nav lateral</Col>
+      <Col className='main-content xs-order-first'>pfp</Col>
+      <Col sm={8} className='main-content'>feed y demas cosas</Col>
     </Row>
   </Container>
-  <div className='nav-mobile'>nav mobile</div>
+  <div className='nav-mobile d-sm-none'>nav mobile</div>
   </>
   )
 }
