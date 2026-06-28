@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400..700&display=swap');
 
 :root{
-    --color-not-white: #f7f7f7;
-    --color-not-black: #202020;
-
     --color-primary-background-lighter:  #F7C8C8;
     --color-primary-background-light:    #CC8C8C;
     --color-primary-background:          #AA6060;
@@ -17,9 +14,14 @@
     --color-secondary-background-darker: #6F4522;
 
     --color-primary-lighter:    #EC7154;
+
     --color-primary-light:      #DC4927;
+
     --color-primary:            #B32F10;
+    --color-primary-rgb:      179, 47, 16;
+
     --color-primary-dark:       #911C00;
+
     --color-primary-darker:     #671400;
 
     --color-success-lighter:    #D8E6BA;
@@ -27,11 +29,52 @@
     --color-success:            #889F5A;
     --color-success-dark:       #63783B;
     --color-success-darker:     #506820;
-
 }
 
 body{
     font-family: 'AR One Sans', 'Sans Serif';
-    background-color: var(--color-primary-background-darker);
-    color: var(--color-not-white);
+    background-color: var(--bs-primary-bg);
+    color: var(--bs-light);
+}
+
+.landing-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding-inline: 2rem;
+}
+
+.landing-text h1{
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.landing-text h2{
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.landing-text h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+
+}
+
+.landing-text p {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.landing-text button {
+    margin-inline: auto;
+}
+
+.landing-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-inline: 4rem;
 }
