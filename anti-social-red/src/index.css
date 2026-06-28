@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400..700&display=swap');
 
 :root{
-    --color-not-white: #f7f7f7;
-    --color-not-black: #202020;
-
     --color-primary-background-lighter:  #F7C8C8;
     --color-primary-background-light:    #CC8C8C;
     --color-primary-background:          #AA6060;
@@ -32,20 +29,12 @@
     --color-success:            #889F5A;
     --color-success-dark:       #63783B;
     --color-success-darker:     #506820;
-
-    --bs-primary: var(--color-primary-background-darker);
-    --bs-primary-rgb: var(--color-primary-rgb);
-    --bs-success:var(--color-success);
 }
 
 body{
     font-family: 'AR One Sans', 'Sans Serif';
-    background-color: var(--color-primary-background-darker);
-    color: var(--color-not-white);
-}
-
-.row-even{
-    background-color: var(--color-primary-background-dark);
+    background-color: var(--bs-primary-bg);
+    color: var(--bs-light);
 }
 
 .landing-text{

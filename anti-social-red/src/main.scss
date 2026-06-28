@@ -1,5 +1,20 @@
 @import "bootstrap/scss/functions";
 
 $primary:#B32F10;
+$secondary:#905050;
+$warning:#B36610;
+$danger:#AF0B0B;
+$success:#0C813B;
+$info:#883464;
+$light:#e0e0e0;
+$dark:#202020;
+
+$custom-palette: (
+"primary-bg":#6F2222
+);
+
+@import "bootstrap/scss/variables";
+
+$theme-colors: map-merge($theme-colors, $custom-palette);
 
 @import "bootstrap/scss/bootstrap";

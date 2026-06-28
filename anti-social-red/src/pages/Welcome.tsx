@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 
 function Welcome() {
   return (
-    <Container fluid className='landing-container'>
+    <Container fluid className='landing-container bg-gradient'>
       <Row>
         <Col className='landing-text'>
          <h1>
@@ -19,14 +19,14 @@ function Welcome() {
          <h2>
             ¿te parece horrible?
          </h2>
-         <Button>Vení y decilo de frente</Button>
+         <Button variant='primary border'>Vení y decilo de frente</Button>
         </Col>
         <Col sm={5} className='landing-image d-none d-sm-block'>
             <img src={Dumpster} className='img-fluid object-fit-contain'/>
         </Col>
       </Row>
       <br/>
-      <Row className='row-even'>
+      <Row>
         <Col sm={5} className='landing-image'>
          captura de un post
         </Col>
@@ -41,13 +41,13 @@ function Welcome() {
               Sin Algoritmos
           </h2>
           <p>
-              nuestras controversias son 100% naturales
+              Los posts que ves y compartís van por cuenta tuya, nunca vamos a mostrarte nada que no quieras ver.
           </p>
           <h2>
               Sin subscripciones
           </h2>
           <p>
-              Nuestro modelo de negocio de ultima generación nos permite mantener el sitio siempre online el 30% de las veces.
+              Nuestro modelo de negocio de última generación nos permite mantener nuestro sitio online de forma 100% gratuita para siempre*.
           </p>
         </Col>
       </Row>
@@ -65,11 +65,11 @@ function Welcome() {
           <p>Para nosotros la privacidad es lo más importante, por eso no compartimos ni vamos a compartir los datos que subís con empresas de terceros. Todo se queda acá, y si no te gusta andate a facebook.</p>
 
           <h2>¿Grok? ¿quien te conoce?</h2>
-          <p>Garantizamos que todos nuestros usuarios son humanos, toxicidad 100% orgánica libre de gluten.</p>
+          <p>Garantizamos que todos nuestros usuarios son humanos, toxicidad 100% orgánica libre de bots**.</p>
         </Col>
       </Row>
       <br/>
-      <Row className='row-even'>
+      <Row>
         <Col className='landing-text'>
           <h1>Y a todo esto... ¿quien sos vos?</h1>
           <p>antiSocial es un producto de softWorse Co., una compañia de software que esta harta de las boludeces que hacen las otras redes. Ningún billonario (ni trillonario) va a comprarnos y hacer lo que se le cante con nuestros productos, arruinándolos en el proceso. No nos hacemos responsables por lo que hagas y dejes de hacer en nuestro sitio.</p>
@@ -79,11 +79,17 @@ function Welcome() {
       <Row>
         <Col className='landing-text'>
           <h1>¿Listo para mandar todo a la #$&*%?</h1>
-          <Button>Unirse al bardo</Button>
+          <Button variant='primary border'>Unirse al bardo</Button>
         </Col>
       </Row>
       <br/>
-      <Row>footer</Row>
+      <Row>
+        <p className='fs-6'>
+          *O por lo menos hasta que el pasante se de cuenta de que registramos los servidores a su nombre.<br/>
+          **No nos hacemos responsables de verificar si un usuario es o no un bot. Si Skynet quiere hacerse una cuenta, es libre de hacerlo.
+
+        </p>
+      </Row>
     </Container>
   )
 }
