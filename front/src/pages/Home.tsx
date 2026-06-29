@@ -3,13 +3,20 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button, ButtonGroup, Form, InputGroup, Stack } from 'react-bootstrap';
 import Post from '../components/Post';
+import { AuthContextGlobal } from '../context/AuthContext';
+import { useContext } from 'react';
 
 function Home() {
+
+  const {logout} =  useContext(AuthContextGlobal);
 
   return (<>
   <Container fluid>
     <Row>
-      <Col className='main-content d-none d-sm-block bg-primary'><p>nav lateral</p></Col>
+      <Col className='main-content d-none d-sm-block bg-primary'>
+        <p>nav lateral</p>
+        <Button onClick={logout} variant='danger'>Cerrar sesión</Button>
+      </Col>
       <Col sm={8} className='main-content p-2'>
         <Stack gap={2}>
           <InputGroup>
