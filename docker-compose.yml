@@ -1,0 +1,55 @@
+services:
+  mongodb:
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin1234
+    ports:
+      - 27017:27017
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    #volumes:
+    # - ./mongo_data:/data/db # Volumen persistente fuera del contenedor
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://admin:admin1234@mongodb:27017/antisocialred?authSource=admin
+      ME_CONFIG_BASICAUTH: "false"
+    depends_on:
+      - mongodb
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis_data:/data
+    command: redis-server
+  
+  backend:
+    build: ./backend
+    ports:
+      - 3000:3000
+    depends_on:
+      mongodb:
+          condition: service_healthy
+      redis:
+        condition: service_started
+    restart: always
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://admin:admin1234@mongodb:27017/antisocialred?authSource=admin     
+      - REDIS_URI=redis://redis:6379
+  
+  frontend:
+    build: ./front
+    ports:
+      - 5173:5173
+    environment:
+      - VITE_API_URL=http://localhost:3000
