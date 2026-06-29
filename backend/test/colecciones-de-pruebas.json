@@ -1,0 +1,655 @@
+{
+	"info": {
+		"name": "TP2-AntiSocial-NoSQL",
+		"description": "Colección de pruebas para la API RESTful migrada a MongoDB (Mongoose).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Usuarios",
+			"item": [
+				{
+					"name": "Obtener Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/usuarios",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					}
+				},
+				{
+					"name": "Crear Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nickname\": \"tizi\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/usuarios",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					}
+				},
+				{
+					"name": "Obtener Usuario por Nickname",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/usuarios/tizi",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"usuarios",
+								"tizi"
+							]
+						}
+					}
+				},
+				{
+					"name": "Editar Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nickname\": \"tizi_modificado\",\n    \"password\": \"nueva123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/usuarios/tizi",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"usuarios",
+								"tizi"
+							]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/usuarios/tizi_modificado",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"usuarios",
+								"tizi_modificado"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Etiquetas",
+			"item": [
+				{
+					"name": "Obtener Etiquetas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/etiquetas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"etiquetas"
+							]
+						}
+					}
+				},
+				{
+					"name": "Crear Etiqueta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Tecnologia\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/etiquetas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"etiquetas"
+							]
+						}
+					}
+				},
+				{
+					"name": "Obtener Etiqueta por Mongo ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/etiquetas/REEMPLAZAR_POR_ID_MONGO",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"etiquetas",
+								"REEMPLAZAR_POR_ID_MONGO"
+							]
+						}
+					}
+				},
+				{
+					"name": "Editar Etiqueta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Programacion NoSQL\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/etiquetas/REEMPLAZAR_POR_ID_MONGO",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"etiquetas",
+								"REEMPLAZAR_POR_ID_MONGO"
+							]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Etiqueta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/etiquetas/REEMPLAZAR_POR_ID_MONGO",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"etiquetas",
+								"REEMPLAZAR_POR_ID_MONGO"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Publicaciones",
+			"item": [
+				{
+					"name": "Obtener Publicaciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/publicaciones",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones"
+							]
+						}
+					}
+				},
+				{
+					"name": "Crear Publicacion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_nickname\": \"tizi\",\n    \"text\": \"Este es mi primer post guardado en MongoDB\",\n    \"description\": \"Probando Mongoose en el TP2\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/publicaciones",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones"
+							]
+						}
+					}
+				},
+				{
+					"name": "Obtener Publicacion por Mongo ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/publicaciones/REEMPLAZAR_POR_ID_MONGO",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones",
+								"REEMPLAZAR_POR_ID_MONGO"
+							]
+						}
+					}
+				},
+				{
+					"name": "Editar Publicacion",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_nickname\": \"tizi\",\n    \"text\": \"Post editado exitosamente en Mongo\",\n    \"description\": \"Nueva descripcion\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/publicaciones/REEMPLAZAR_POR_ID_MONGO",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones",
+								"REEMPLAZAR_POR_ID_MONGO"
+							]
+						}
+					}
+				},
+				{
+					"name": "Asociar Etiqueta a Publicacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/publicaciones/ID_PUBLICACION/etiquetas/ID_ETIQUETA",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones",
+								"ID_PUBLICACION",
+								"etiquetas",
+								"ID_ETIQUETA"
+							]
+						}
+					}
+				},
+				{
+					"name": "Obtener Etiquetas de Publicación",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/publicaciones/ID_PUBLICACION/etiquetas",
+							"host": ["{{base_url}}"],
+							"path": ["publicaciones", "ID_PUBLICACION", "etiquetas"]
+						}
+					}
+				},{
+					"name": "Eliminar Etiqueta de Publicación",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/publicaciones/ID_PUBLICACION/etiquetas/ID_ETIQUETA",
+							"host": ["{{base_url}}"],
+							"path": ["publicaciones", "ID_PUBLICACION", "etiquetas", "ID_ETIQUETA"]
+						}
+					}
+				},
+				{
+					"name": "Agregar Imagen a Publicacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagen",
+									"type": "file",
+									"description": "Selecciona un archivo de imagen desde tu computadora"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/publicaciones/ID_PUBLICACION/imagenes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones",
+								"ID_PUBLICACION",
+								"imagenes"
+							]
+						}
+					}
+				},{
+					"name": "Obtener Imagenes de Publicacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/publicaciones/ID_PUBLICACION/imagenes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones",
+								"ID_PUBLICACION",
+								"imagenes"
+							]
+						}
+					}
+				},{
+					"name": "Eliminar Imagen de Publicacion",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/publicaciones/ID_PUBLICACION/imagenes/ID_IMAGEN",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones",
+								"ID_PUBLICACION",
+								"imagenes",
+								"ID_IMAGEN"
+							]
+						}
+					}
+				},
+				{
+					"name": "Crear Comentario en Publicacion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Este es un comentario de prueba en Mongo\",\n    \"is_visible\": true,\n    \"user_nickname\": \"tizi\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/publicaciones/REEMPLAZAR_POR_ID_MONGO/comentarios",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones",
+								"REEMPLAZAR_POR_ID_MONGO",
+								"comentarios"
+							]
+						}
+					}
+				},
+				{
+					"name": "Obtener Comentarios de Publicación",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/publicaciones/ID_PUBLICACION/comentarios",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones",
+								"ID_PUBLICACION",
+								"comentarios"
+							]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Publicacion",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/publicaciones/REEMPLAZAR_POR_ID_MONGO",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"publicaciones",
+								"REEMPLAZAR_POR_ID_MONGO"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "4. Comentarios",
+			"item": [
+				{
+					"name": "Obtener Todos los Comentarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comentarios",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comentarios"
+							]
+						}
+					}
+				},
+				{
+					"name": "Obtener Comentario por Mongo ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comentarios/REEMPLAZAR_POR_ID_MONGO",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comentarios",
+								"REEMPLAZAR_POR_ID_MONGO"
+							]
+						}
+					}
+				},
+				{
+					"name": "Editar Comentario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Comentario oculto por admin\",\n    \"is_visible\": false,\n    \"user_nickname\": \"tizi\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/comentarios/REEMPLAZAR_POR_ID_MONGO",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comentarios",
+								"REEMPLAZAR_POR_ID_MONGO"
+							]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Comentario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/comentarios/REEMPLAZAR_POR_ID_MONGO",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comentarios",
+								"REEMPLAZAR_POR_ID_MONGO"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "5. Seguidores (Follows)",
+			"item": [
+				{
+					"name": "Obtener Todos los Follows",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seguidos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seguidos"
+							]
+						}
+					}
+				},
+				{
+					"name": "Obtener Follows de Usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seguidos/tizi",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seguidos",
+								"tizi"
+							]
+						}
+					}
+				},
+				{
+					"name": "Seguir a un Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"followed_user_nickname\": \"amigo123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seguidos/tizi",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seguidos",
+								"tizi"
+							]
+						}
+					}
+				},
+				{
+					"name": "Dejar de Seguir a un Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"followed_user_nickname\": \"amigo123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seguidos/tizi",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seguidos",
+								"tizi"
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}

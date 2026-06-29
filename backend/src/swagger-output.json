@@ -1,0 +1,1255 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "UnaHur Anti-Social Net API",
+    "description": "Documentación del backend para la red social de UNAHUR",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Publicaciones",
+      "description": "Endpoints de Publicaciones"
+    },
+    {
+      "name": "Usuarios",
+      "description": "Endpoints de Usuarios"
+    },
+    {
+      "name": "Etiquetas",
+      "description": "Endpoints de Etiquetas"
+    },
+    {
+      "name": "Comentarios",
+      "description": "Endpoints de Comentarios"
+    }
+  ],
+  "paths": {
+    "/publicaciones/": {
+      "get": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Obtener todos las publicaciones del sistema",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Publicaciones retornados exitosamente."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Crea un nuevo usuario en el sistema",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Publiicacion creada exitosamente."
+          },
+          "400": {
+            "description": "El body no esta completo."
+          },
+          "404": {
+            "description": "No se puede crear la publicación: el usuario no existe en la base de datos"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicacionNueva"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/publicaciones/{id}": {
+      "get": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Obtiene los detalles de una publicacion por su ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la publicacion a buscar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicacion encontrada exitosamente."
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Publicacion no encontrada."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Editar los datos de una publicacion por su ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la publicacion a buscar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicacion modificada con exito."
+          },
+          "400": {
+            "description": "El body no esta completo"
+          },
+          "404": {
+            "description": "Publicacion no encontrada en la base de datos."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicacionNueva"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Elimina una publicacion del sistema por su id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la publicacion a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicacion eliminada exitosamente."
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Publicacion no encontrada."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/publicaciones/{id}/etiquetas": {
+      "get": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Obtener etiquetas de una publicacion por su ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/publicaciones/{postId}/etiquetas/{tagId}": {
+      "post": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Agregar etiqueta por id a una publicacion por su ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Eliminar etiqueta por id de una publicacion por su ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/publicaciones/{id}/imagenes": {
+      "get": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Obtener todas las imágenes de una publicación",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Agregar una imagen a una publicación",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/publicaciones/{postId}/imagenes/{imageId}": {
+      "delete": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Eliminar una imagen de una publicación",
+        "description": "",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/publicaciones/{id}/comentarios": {
+      "get": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Obtener comentarios visibles de una publicación",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la publicación"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comentarios retornados exitosamente."
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Publicación no encontrada."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Crear un nuevo comentario en una publicación específica",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la publicación"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Comentario creado exitosamente."
+          },
+          "400": {
+            "description": "El cuerpo de la solicitud es inválido."
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComentarioNuevo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios/": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Obtener todos los usuarios del sistema",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Usuarios retornados exitosamente."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Crea un nuevo usuario en el sistema",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Usuario creado exitosamente."
+          },
+          "400": {
+            "description": "El nickname es obligatorio o está vacío."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioNuevo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios/{id}": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Obtiene los detalles de un usuario por su ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID cadena de texto del usuario a buscar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario encontrado exitosamente."
+          },
+          "404": {
+            "description": "Usuario no encontrado."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Editar los datos de un usuario por su ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID cadena de texto del usuario a buscar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario modificado con exito."
+          },
+          "400": {
+            "description": "El nickname es obligatorio o está vacío."
+          },
+          "404": {
+            "description": "Usuario no encontrado en la base de datos."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioNuevo"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Elimina un usuario del sistema por su id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID cadena de texto del usuario a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario eliminado exitosamente."
+          },
+          "404": {
+            "description": "Usuario no encontrado."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/usuarios/login": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Loguea un usuario en el sistema",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Login exitoso. Retorna datos del usuario.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "seguidores": {
+                      "type": "array",
+                      "example": [
+                        "array de ids"
+                      ],
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "seguidos": {
+                      "type": "array",
+                      "example": [
+                        "array de ids"
+                      ],
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "nickname": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "seguidores": {
+                      "type": "array",
+                      "example": [
+                        "array de ids"
+                      ],
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "seguidos": {
+                      "type": "array",
+                      "example": [
+                        "array de ids"
+                      ],
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Contraseña incorrecta."
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "El usuario no existe."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nickname": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "nickname",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/etiquetas/": {
+      "get": {
+        "tags": [
+          "Etiquetas"
+        ],
+        "summary": "Obtener todas las etiquetas del sistema",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Etiquetas"
+        ],
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/etiquetas/{id}": {
+      "get": {
+        "tags": [
+          "Etiquetas"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Etiquetas"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Etiquetas"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/comentarios/": {
+      "get": {
+        "tags": [
+          "Comentarios"
+        ],
+        "summary": "Obtener todos los comentarios del sistema",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Comentarios retornadas exitosamente."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/comentarios/{id}": {
+      "get": {
+        "tags": [
+          "Comentarios"
+        ],
+        "summary": "Obtiene los detalles de un comentario por su ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del comentario a buscar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comentario encontrado exitosamente."
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Comentario no encontrado."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Comentarios"
+        ],
+        "summary": "Editar los datos de un comentario por su ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del comentario a buscar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comentario modificado con exito."
+          },
+          "400": {
+            "description": "El body no cumple con los requisitos."
+          },
+          "404": {
+            "description": "Comentario encontrado en la base de datos."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComentarioNuevo"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Comentarios"
+        ],
+        "summary": "Elimina un comentario del sistema por su id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del comentario a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comentario eliminado exitosamente."
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Comentario no encontrado."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/seguidos/": {
+      "get": {
+        "tags": [
+          "Follows"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Lista de follows obtenida correctamente."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/seguidos/{user}": {
+      "get": {
+        "tags": [
+          "Follows"
+        ],
+        "summary": "Obtener los usuarios que sigue un usuario específico",
+        "description": "",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nickname del usuario"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Follows obtenidos correctamente."
+          },
+          "404": {
+            "description": "Usuario no encontrado."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Follows"
+        ],
+        "summary": "Seguir a un usuario",
+        "description": "",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nickname del usuario que va a seguir a otro"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Seguimiento creado correctamente."
+          },
+          "400": {
+            "description": "El body no es válido o el seguimiento ya existe."
+          },
+          "404": {
+            "description": "Usuario o seguido no encontrado."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FollowNuevo"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Follows"
+        ],
+        "summary": "Dejar de seguir a un usuario",
+        "description": "",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nickname del usuario que va a dejar de seguir a otro"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Seguimiento eliminado correctamente."
+          },
+          "400": {
+            "description": "No existe el seguimiento para eliminar."
+          },
+          "404": {
+            "description": "Usuario o seguido no encontrado."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FollowNuevo"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UsuarioNuevo": {
+        "type": "object",
+        "properties": {
+          "nickname": {
+            "type": "string",
+            "example": "user_123"
+          },
+          "password": {
+            "type": "string",
+            "example": "123456"
+          }
+        },
+        "required": [
+          "nickname",
+          "password"
+        ],
+        "xml": {
+          "name": "UsuarioNuevo"
+        }
+      },
+      "EtiquetaNueva": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Entretenimiento"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "xml": {
+          "name": "EtiquetaNueva"
+        }
+      },
+      "PublicacionNueva": {
+        "type": "object",
+        "properties": {
+          "user_nickname": {
+            "type": "string",
+            "example": "user_123"
+          },
+          "text": {
+            "type": "string",
+            "example": "Este es el texto principal del post"
+          },
+          "description": {
+            "type": "string",
+            "example": "Esta es una descripción opcional"
+          }
+        },
+        "required": [
+          "user_nickname",
+          "text"
+        ],
+        "xml": {
+          "name": "PublicacionNueva"
+        }
+      },
+      "ComentarioNuevo": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "example": "Este es un comentario"
+          },
+          "is_visible": {
+            "type": "boolean",
+            "example": true
+          },
+          "user_nickname": {
+            "type": "string",
+            "example": "tizi"
+          }
+        },
+        "required": [
+          "text",
+          "is_visible",
+          "user_nickname"
+        ],
+        "xml": {
+          "name": "ComentarioNuevo"
+        }
+      },
+      "ImagenNueva": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "example": "https://ejemplo.com/tu-imagen.png"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "xml": {
+          "name": "ImagenNueva"
+        }
+      },
+      "FollowNuevo": {
+        "type": "object",
+        "properties": {
+          "followed_user_nickname": {
+            "type": "string",
+            "example": "amigo_123"
+          }
+        },
+        "required": [
+          "followed_user_nickname"
+        ],
+        "xml": {
+          "name": "FollowNuevo"
+        }
+      }
+    }
+  }
+}
