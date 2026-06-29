@@ -1,91 +1,90 @@
-# 🚫 Red Anti-Social API
+¡Excelente idea! Un buen `README` es la cara de tu proyecto. Dado que ahora tienes un sistema integrado con Docker, Frontend y Backend, la sección de **"Instalación"** es la que más necesita un cambio radical para que tu profesor no tenga que instalar nada manualmente.
 
-> **Trabajo Práctico 2 - Bases de Datos NoSQL** > Universidad Nacional de Hurlingham (UNAHUR)
-
-Una API RESTful desarrollada en Node.js para gestionar una red "anti-social". El sistema permite a los usuarios interactuar mediante publicaciones, comentarios, etiquetas y un sistema completo de seguimiento (followers/following).
-
-### 👥 Integrantes:
-* Dylan Correa
-* Agustin Fernandes
-* Leonardo Murano
-* Tomas Rosales
-* Matias de la Rosa
+Aquí tienes el nuevo `README.md` estructurado y completo:
 
 ---
 
-## 🚀 Tecnologías Utilizadas
+# 🚫 Anti-Social Red - Full Stack Application
+
+> **Trabajo Práctico 2 - Bases de Datos NoSQL** > Universidad Nacional de Hurlingham (UNAHUR)
+
+Sistema Full-Stack de una red "anti-social" desarrollado con una arquitectura orientada a microservicios orquestada por Docker. El sistema permite gestionar publicaciones, comentarios, etiquetas y un sistema de seguimiento, utilizando MongoDB para la persistencia y Redis para la optimización de consultas.
+
+### 👥 Integrantes:
+
+* Dylan Correa, Agustin Fernandes, Leonardo Murano, Tomas Rosales, Matias de la Rosa
+
+---
+
+## 🛠️ Stack Tecnológico
+
+* **Frontend:** React, Vite, TypeScript
 * **Backend:** Node.js, Express.js
-* **ODM:** Mongoose
-* **Bases de Datos:** MongoDB, Redis (Caché)
+* **Bases de Datos:** MongoDB (NoSQL), Redis (Caché)
 * **Infraestructura:** Docker, Docker Compose
 * **Documentación:** Swagger UI
 
 ---
 
-## ⚙️ Instalación y Configuración Local
+## 🚀 Instalación y Despliegue (Docker)
+
+Gracias a la orquestación con Docker Compose, levantar todo el entorno es extremadamente sencillo. No necesitas instalar Node.js, MongoDB ni Redis en tu máquina local.
 
 1. **Clonar el repositorio:**
-   ```bash
-      git clone [https://github.com/EP-UnaHur-2026C1/anti-social-relational-tp-npm_install_milagro.git](https://github.com/EP-UnaHur-2026C1/anti-social-relational-tp-npm_install_milagro.git)
-      cd tp-anti-social-red
-   ```
+```bash
+git clone https://github.com/LeonardoMuranodev/anti-social-red-unahur-frontend.git
+cd tp-anti-social-2
 
-2. **Instalar las dependencias:**
-   ```bash
-      npm install
-   ```
+```
 
-3. **Configurar las variables de entorno:**
-Crear un archivo `.env` en la raíz del proyecto basándose en la siguiente estructura:
-   ```env
-   PORT=3000
-   MONGO_URI=mongodb://admin:admin1234@127.0.0.1:27017/socialred?authSource=admin
-   REDIS_URI=redis://127.0.0.1:6379
 
-   ```
+2. **Levantar todos los servicios:**
+Asegúrate de tener **Docker Desktop** abierto y ejecuta:
+```bash
+docker compose up --build
 
-4. **Levantar los servicios de Base de Datos (Docker):**
-Asegúrate de tener Docker corriendo e inicia los contenedores de MongoDB, Mongo Express y Redis:
-   ```bash
-   docker compose up -d
+```
 
-   ```
 
-5. **Ejecutar el servidor en modo desarrollo:**
-   ```bash
-   npm run dev
-   ```
+3. **Acceso a la aplicación:**
+Una vez que los contenedores estén corriendo, la aplicación estará disponible en:
+* **Frontend:** [http://localhost:5173](http://localhost:5173)
+* **API Backend:** [http://localhost:3000](http://localhost:3000)
+* **Documentación Swagger:** [http://localhost:3000/docs](http://localhost:3000/docs)
+* **Mongo Express (DB Admin):** [http://localhost:8081](http://localhost:8081)
+
+
 
 ---
 
-## 📚 Documentación de la API (Swagger)
+## 📚 Documentación y Consignas
 
-La API cuenta con documentación interactiva generada con Swagger. Una vez que el servidor esté corriendo, puedes acceder a la interfaz gráfica y probar los endpoints desde tu navegador:
-
-👉 **[http://localhost:3000/docs](https://www.google.com/search?q=http://localhost:3000/docs)**
-
-*(Nota: También puedes acceder al panel de administración de la base de datos a través de Mongo Express en `http://localhost:8081`)*
-
----
-
-## 🧪 Colección de Pruebas (Postman)
-
-Para facilitar la corrección y prueba de todos los flujos del sistema (CRUD completo, follows, etc.), se incluye una colección de pruebas estructurada.
-
-* **Archivo de la colección:** `colecciones-de-pruebas.json` (Ubicado en la carpeta `/test`).
-* **Instrucciones:** Importar el archivo JSON en Postman o Insomnia para tener acceso a todos los endpoints pre-configurados con sus respectivos payloads (body).
+| Documento | Enlace |
+| --- | --- |
+| **Consigna TP (Backend/General)** | [Ver Consigna](./docs/CONSIGNA-BACKEND.md) |
+| **Consigna Frontend** | [Enlace a Consigna Frontend](./docs/CONSIGNA-FRONTEND.md) |
+| **Modelado NoSQL** | [Justificación del Modelado](./docs/MODELADO-NOSQL.md) |
 
 ---
 
-## 💾 Arquitectura y Modelado NoSQL
+## 💾 Arquitectura y Modelado
 
-A diferencia del enfoque relacional utilizado en la primera iteración del proyecto, este sistema ha sido rediseñado utilizando un modelo orientado a documentos con **MongoDB**.
-
-Hemos analizado cada relación del sistema para decidir estratégicamente cuándo utilizar patrones de **Incrustación (Embedding)** y cuándo utilizar **Referencias (Referencing)**, optimizando así el rendimiento de las consultas y la integridad de los datos.
-
-👉 **[Ver justificación detallada del Modelado NoSQL](./docs/MODELADO-NOSQL.md)**
+Este sistema utiliza un modelo orientado a documentos. Hemos implementado patrones de **Incrustación (Embedding)** para datos que se consultan juntos y **Referencias (Referencing)** para mantener la normalización donde es necesario, logrando un balance entre rendimiento y escalabilidad.
 
 ---
-## 🖥️ Consigna del TP
 
-👉 **[Ver consigna del TP](./docs/CONSIGNA.md)**
+## 🧪 Pruebas
+
+Se incluyen herramientas para verificar el funcionamiento del sistema:
+
+* **Postman:** Importar el archivo `/backend/test/colecciones-de-pruebas.json` en Postman para probar todos los endpoints del sistema.
+* **Mongo Express:** Accede a [http://localhost:8081](http://localhost:8081) para visualizar, insertar o editar documentos en tiempo real en tu base de datos.
+
+---
+
+### Notas de desarrollo
+
+* El entorno está configurado automáticamente mediante `docker-compose.yml`.
+* Los datos de la base de datos de Redis son persistidos en la carpeta local `./redis_data`.
+
+---
