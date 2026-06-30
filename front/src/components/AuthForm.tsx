@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContextGlobal } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
 import { loginUser, registerUser } from "../services/userServices";
@@ -14,8 +14,9 @@ export default function AuthForm({tipo}: AuthFormProps) {
 
     const { login } = useContext(AuthContextGlobal);
     const navigate = useNavigate();
-    const titleText = tipo == "login" ? "Iniciar Sesión" : "Registrarse"
 
+
+    const titleText = tipo == "login" ? "Iniciar Sesión" : "Registrarse"
 
     const FormSubmit = async (data: any) => {
         setErrorForm(""); 
@@ -35,7 +36,7 @@ export default function AuthForm({tipo}: AuthFormProps) {
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: "var(--color-primary-background-darker)" }}>
+        <section className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: "var(--color-primary-background-darker)" }}>
             <div className="card shadow-lg p-4" style={{ backgroundColor: "transparent", border: "none", width: "100%", maxWidth: "400px" }}>
                 <h2 className="text-white mb-4 fw-bold">{titleText}</h2>
                 
@@ -81,7 +82,16 @@ export default function AuthForm({tipo}: AuthFormProps) {
                         {errorForm}
                     </div>
                 )}
+
+                <div className="text-center mt-3 text-white">
+                    <p>{tipo == "login" ? "No tenes una cuenta?" : "Ya tenes una cuenta?"} 
+                        {" "}
+                        <Link to={tipo == "login" ? "/signup" : "/login"} style={{ color: "var(--color-primary-light)" }}>
+                            {tipo == "login" ? "Registrate acá" : "Inicia sesion acá"}
+                        </Link>
+                    </p>
+                </div>
             </div>
-        </div>
+        </section>
     )
 }
