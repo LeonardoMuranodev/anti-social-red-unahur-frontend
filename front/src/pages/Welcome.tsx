@@ -49,7 +49,7 @@ export default function Welcome() {
           <Navbar.Brand
             as="a"
             href="/welcome"
-            className="fw-bold text-danger"
+            className="fw-bold text-danger fs-2"
           >
             antiSocial 
           </Navbar.Brand>
@@ -58,28 +58,27 @@ export default function Welcome() {
 
           <Navbar.Collapse>
 
-            <Nav className="ms-auto d-flex flex-column flex-md-row gap-1">
-              <Link to="/login">
-                <BsButton
-                  size="sm"
-                  variant="outline-light"
-                  className="px-2 py-1"
-                >
-                  Login
-                </BsButton>
-              </Link>
+           <Nav className="ms-auto d-flex flex-column flex-md-row gap-2">
 
-              <Link to="/signup">
-                <BsButton
-                  size="sm"
-                  variant="danger"
-                  className="px-2 py-1"
-                >
-                  Unirse
-                </BsButton>
-              </Link>
+            <Link to="/login" className="text-decoration-none">
+              <BsButton
+                variant="outline-light"
+                className="navbar-btn px-4 py-2 fw-semibold"
+              >
+                Iniciar sesión
+              </BsButton>
+            </Link>
 
-            </Nav>
+            <Link to="/signup" className="text-decoration-none">
+              <BsButton
+                variant="danger"
+                className="navbar-btn px-4 py-2 fw-semibold"
+              >
+                Registrarse
+              </BsButton>
+            </Link>
+
+          </Nav>
 
           </Navbar.Collapse>
 
