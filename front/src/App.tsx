@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, useLocation } from "react-router";
 import Home from "./pages/Home";
 import Welcome from "./pages/Welcome";
 import Profile from "./pages/Profile";
@@ -7,27 +7,34 @@ import PostDetail from "./pages/PostDetail";
 import ProtectedRoute from "./route/ProtectedRoute";
 import AuthForm from "./components/AuthForm";
 import PublicRoute from "./route/PublicRoute";
+import { AnimatePresence } from "framer-motion";
+import PageTransition from "./animations/PageTransition";
 
 function App() {
 
-  return (<>
-    <Routes>
-      {/* Rutas Protegidas para logueados*/}
-      <Route element={<ProtectedRoute/>}>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/user/*' element={<Profile/>}/>
-        <Route path='/post/*' element={<PostDetail/>}/>
-      </Route>
+  const location = useLocation();
 
-      {/* Rutas  para no logueados*/}
-      <Route element={<PublicRoute/>}>
-        <Route path='/welcome' element={<Welcome/>}/>
-        <Route path='/login' element={<AuthForm tipo="login"/>}/>
-        <Route path='/signup' element={<AuthForm tipo="signup"/>}/>
-      </Route>
-      
-      <Route path='/*' element={<Error404/>}/>
-    </Routes>
+  return (
+  <>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          {/* Rutas Protegidas */}
+          <Route element={<ProtectedRoute/>}>
+            <Route path='/' element={<PageTransition><Home/></PageTransition>}/>
+            <Route path='/user/*' element={<PageTransition><Profile/></PageTransition>}/>
+            <Route path='/post/*' element={<PageTransition><PostDetail/></PageTransition>}/>
+          </Route>
+
+          {/* Rutas Publicas */}
+          <Route element={<PublicRoute/>}>
+            <Route path='/welcome' element={<PageTransition><Welcome/></PageTransition>}/>
+            <Route path='/login' element={<PageTransition><AuthForm tipo="login"/></PageTransition>}/>
+            <Route path='/signup' element={<PageTransition><AuthForm tipo="signup"/></PageTransition>}/>
+          </Route>
+          
+          <Route path='/*' element={<PageTransition><Error404/></PageTransition>}/>
+        </Routes>
+      </AnimatePresence>
     </>
   )
 }

@@ -102,7 +102,7 @@ export default function Welcome() {
            <Button variant='primary border'>Vení y decilo de frente</Button>
           </Col>
           <Col sm={5} className='landing-image d-none d-sm-block'>
-              <img src={Dumpster} className='img-fluid object-fit-contain'/>
+              <img src={Dumpster} className='img-fluid object-fit-contain' alt={Dumpster}/>
           </Col>
         </Row>
 
