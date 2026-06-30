@@ -79,3 +79,34 @@ body{
     flex-direction: column;
     padding-inline: 4rem;
 }
+
+/* Estilos para AuthForm */
+.auth-section {
+    background-color: var(--color-primary-background-darker);
+}
+
+.auth-card {
+    background-color: transparent !important;
+    border: none !important;
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-error-text {
+    font-size: 0.85rem;
+}
+
+.auth-button {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-primary-light) !important;
+}
+
+.auth-alert {
+    background-color: var(--color-primary-background-lighter) !important;
+    color: var(--color-primary-darker) !important;
+    border: none !important;
+}
+
+.auth-link {
+    color: var(--color-primary-light);
+}

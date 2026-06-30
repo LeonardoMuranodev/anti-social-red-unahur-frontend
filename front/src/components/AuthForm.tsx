@@ -8,6 +8,8 @@ interface AuthFormProps {
     tipo: 'login' | 'signup';
 }
 
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 export default function AuthForm({tipo}: AuthFormProps) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [errorForm, setErrorForm] = useState<string>("");
@@ -15,12 +17,15 @@ export default function AuthForm({tipo}: AuthFormProps) {
     const { login } = useContext(AuthContextGlobal);
     const navigate = useNavigate();
 
+    const [formEnviado, setFormEnviado] = useState<boolean>(false);
 
     const titleText = tipo == "login" ? "Iniciar Sesión" : "Registrarse"
 
     const FormSubmit = async (data: any) => {
-        setErrorForm(""); 
+        setErrorForm("");
+        setFormEnviado(true)
 
+        await wait(1000);
         try {
             if (tipo === 'login') {
                 const user = await loginUser(data.nickname, data.password);
@@ -32,12 +37,15 @@ export default function AuthForm({tipo}: AuthFormProps) {
             }
         } catch (err: any) {
             setErrorForm(err.message);
+        } finally {
+            setFormEnviado(false)
+            setErrorForm("")
         }
     }
 
     return (
-        <section className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: "var(--color-primary-background-darker)" }}>
-            <div className="card shadow-lg p-4" style={{ backgroundColor: "transparent", border: "none", width: "100%", maxWidth: "400px" }}>
+        <section className="d-flex justify-content-center align-items-center vh-100 auth-section">
+            <div className="card shadow-lg p-4 auth-card">
                 <h2 className="text-white mb-4 fw-bold">{titleText}</h2>
                 
                 <form onSubmit={handleSubmit(FormSubmit)} noValidate>
@@ -50,7 +58,7 @@ export default function AuthForm({tipo}: AuthFormProps) {
                             id="nickname"
                             placeholder="Ej: ddd"
                         />
-                        <div className="text-warning mt-1" style={{ fontSize: "0.85rem" }}>
+                        <div className="text-warning mt-1 auth-error-text">
                             {errors.nickname?.type === 'required' && "Este campo es obligatorio"}
                             {errors.nickname?.type === 'minLength' && "Mínimo 3 caracteres"}
                             {errors.nickname?.type === 'pattern' && "El nickname es incorrecto"}
@@ -66,19 +74,19 @@ export default function AuthForm({tipo}: AuthFormProps) {
                             id="password"
                             placeholder="••••••"
                         />
-                        <div className="text-warning mt-1" style={{ fontSize: "0.85rem" }}>
+                        <div className="text-warning mt-1 auth-error-text">
                             {errors.password?.type === 'required' && "Este campo es obligatorio"}
                             {errors.password?.type === 'minLength' && "Mínimo 3 caracteres"}
                         </div>
                     </div>
                     
-                    <button type="submit" className="btn btn-primary w-100 fw-bold mb-3" style={{ backgroundColor: "var(--color-primary)", borderColor: "var(--color-primary-light)" }}>
-                        Ingresar
+                    <button type="submit" disabled={formEnviado} className="btn btn-primary w-100 fw-bold mb-3 auth-button">
+                        {!formEnviado ? "Ingresar" : "Ingresando..."}
                     </button>
                 </form>
 
                 {errorForm && (
-                    <div className="alert alert-danger text-center" role="alert" style={{ backgroundColor: "var(--color-primary-background-lighter)", color: "var(--color-primary-darker)", border: "none" }}>
+                    <div className="alert alert-danger text-center auth-alert" role="alert">
                         {errorForm}
                     </div>
                 )}
@@ -86,7 +94,7 @@ export default function AuthForm({tipo}: AuthFormProps) {
                 <div className="text-center mt-3 text-white">
                     <p>{tipo == "login" ? "No tenes una cuenta?" : "Ya tenes una cuenta?"} 
                         {" "}
-                        <Link to={tipo == "login" ? "/signup" : "/login"} style={{ color: "var(--color-primary-light)" }}>
+                        <Link to={tipo == "login" ? "/signup" : "/login"} className="auth-link">
                             {tipo == "login" ? "Registrate acá" : "Inicia sesion acá"}
                         </Link>
                     </p>
