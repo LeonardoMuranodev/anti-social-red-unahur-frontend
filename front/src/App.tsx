@@ -7,7 +7,7 @@ import PostDetail from "./pages/PostDetail";
 import ProtectedRoute from "./route/ProtectedRoute";
 import AuthForm from "./components/AuthForm";
 import PublicRoute from "./route/PublicRoute";
-
+import Footer from "./components/Footer";
 function App() {
 
   return (<>

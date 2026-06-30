@@ -35,6 +35,7 @@ body{
     font-family: 'AR One Sans', 'Sans Serif';
     background-color: var(--bs-primary-bg);
     color: var(--bs-light);
+    padding-top: 70px;
 }
 
 .landing-text{
