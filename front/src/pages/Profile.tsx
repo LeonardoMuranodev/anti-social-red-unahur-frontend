@@ -13,6 +13,7 @@ import {
   getPublicaciones,
 } from "../services/postServices";
 import { getUserById } from "../services/userServices";
+import NavigationBar from "../components/Navbar";
 
 interface PostWithComments extends PostData {
   commentCount: number;
@@ -74,7 +75,8 @@ function Profile() {
   const seguidoresCount = profile?.seguidores?.length ?? 0;
   const seguidosCount = profile?.seguidos?.length ?? 0;
 
-  return (
+  return (<>
+  <NavigationBar/>
     <Container fluid className="profile-page py-4">
       <Row className="justify-content-center">
         <Col xs={12} lg={8} xl={7}>
@@ -186,6 +188,7 @@ function Profile() {
         </Col>
       </Row>
     </Container>
+    </>
   );
 }
 
