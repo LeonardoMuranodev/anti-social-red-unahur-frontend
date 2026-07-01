@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Navbar, Container as BsContainer, Nav, Button as BsButton } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { AuthContextGlobal } from '../context/AuthContext';
+import Logo from '../assets/logo.svg?react'
 
 export default function NavigationBar() {
   const { isAuthenticated,logout } = useContext(AuthContextGlobal);
@@ -30,14 +31,11 @@ export default function NavigationBar() {
     }
     else {
         buttons = () => {return(<>
-        <Link to="/user" className="text-decoration-none">
-              <BsButton
+              <BsButton as={Link} to="/user"
                 variant="secondary"
-                className="navbar-btn px-4 py-2 fw-semibold"
               >
                 Mi Perfil
               </BsButton>
-            </Link>
         <BsButton onClick={logout} variant='danger'>Cerrar sesión</BsButton>
         </>
         )
@@ -82,7 +80,9 @@ export default function NavigationBar() {
             href="/welcome"
             className="fw-bold text-primary fs-2"
           >
-            antiSocial 
+            <p>
+              <Logo width='48px' height='48px'/>antiSocial
+            </p> 
           </Navbar.Brand>
 
           <Navbar.Toggle />

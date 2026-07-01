@@ -11,8 +11,6 @@ export default function Welcome() {
 
   return (
     <>
-      <NavigationBar/>
-
       <Container fluid className='landing-container'>
         <Row>
           <Col className='landing-text'>
