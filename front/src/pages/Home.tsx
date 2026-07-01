@@ -8,82 +8,20 @@ import { Button, ButtonGroup, Form, InputGroup, Stack } from 'react-bootstrap';
 import Post from '../components/Post';
 import { AuthContextGlobal } from '../context/AuthContext';
 import Footer from '../components/Footer';
+import NavigationBar from '../components/Navbar';
 
 import Logo from '../assets/logo.svg?react';
 
 function Home() {
 
-  const { logout } = useContext(AuthContextGlobal);
-
-  const [show, setShow] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        setShow(false);
-      } else {
-        setShow(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
-
   return (
     <>
-      <Navbar
-        expand="md"
-        bg="dark"
-        variant="dark"
-        className="border-bottom border-danger shadow-sm"
-        style={{
-          position: 'fixed',
-          top: 0,
-          width: '100%',
-          zIndex: 999,
-          transform: show ? 'translateY(0)' : 'translateY(-100%)',
-          transition: 'transform 0.3s ease-in-out'
-        }}
-      >
-        <BsContainer fluid>
-          <Navbar.Brand
-            as="a"
-            href="/"
-            className="fw-bold text-danger"
-          >
-            <Logo/>
-            antiSocial
-          </Navbar.Brand>
-
-          <Navbar.Toggle />
-
-          <Navbar.Collapse>
-            <Nav className="ms-auto d-flex flex-column flex-md-row gap-1">
-              <Link to="/user">
-                <BsButton
-                  size="sm"
-                  variant="outline-light"
-                  className="px-2 py-1"
-                >
-                  Mi Perfil
-                </BsButton>
-              </Link>
-            </Nav>
-          </Navbar.Collapse>
-        </BsContainer>
-      </Navbar>
+      <NavigationBar/>
 
       <Container fluid>
         <Row>
           <Col className='main-content d-none d-sm-block bg-primary'>
             <p>nav lateral</p>
-            <Button onClick={logout} variant='danger'>Cerrar sesión</Button>
           </Col>
           <Col sm={8} className='main-content p-2'>
             <Stack gap={2}>
