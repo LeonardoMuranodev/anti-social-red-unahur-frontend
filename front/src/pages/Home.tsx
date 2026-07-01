@@ -1,16 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
-import { Navbar, Container as BsContainer, Nav, Button as BsButton } from 'react-bootstrap';
-import { Link } from 'react-router';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button, ButtonGroup, Form, InputGroup, Stack } from 'react-bootstrap';
 import Post from '../components/Post';
-import { AuthContextGlobal } from '../context/AuthContext';
 import Footer from '../components/Footer';
 import NavigationBar from '../components/Navbar';
-
-import Logo from '../assets/logo.svg?react';
 
 function Home() {
 
@@ -19,11 +13,8 @@ function Home() {
       <NavigationBar/>
 
       <Container fluid>
-        <Row>
-          <Col className='main-content d-none d-sm-block bg-primary'>
-            <p>nav lateral</p>
-          </Col>
-          <Col sm={8} className='main-content p-2'>
+        <Row className='justify-content-end'>
+          <Col sm={8} md={6} className='main-content p-2 align-self-start'>
             <Stack gap={2}>
               <InputGroup>
                 <Form.Control
@@ -61,12 +52,9 @@ function Home() {
               </Stack>
             </Stack>
           </Col>
-          <Col className='main-content xs-order-first'>pfp</Col>
+          <Col sm={2} md={3} className='main-content xs-order-first'>pfp</Col>
         </Row>
       </Container>
-
-      <div className='nav-mobile d-sm-none'>nav mobile</div>
-
       <Footer />
     </>
   );

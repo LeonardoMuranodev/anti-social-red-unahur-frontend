@@ -5,6 +5,8 @@ import Dumpster from '../assets/hero.png';
 import { Button } from 'react-bootstrap';
 import Footer from "../components/Footer";
 import NavigationBar from '../components/Navbar';
+import { Link } from 'react-router';
+import AuthModal from '../components/AuthModal';
 export default function Welcome() {
 
   return (
@@ -22,7 +24,7 @@ export default function Welcome() {
            <h2>
               ¿te parece horrible?
            </h2>
-           <Button variant='primary border'>Vení y decilo de frente</Button>
+           <AuthModal text="veni y decilo de frente"/>
           </Col>
           <Col sm={5} className='landing-image d-none d-sm-block'>
               <img src={Dumpster} className='img-fluid object-fit-contain' alt={Dumpster}/>
@@ -90,7 +92,7 @@ export default function Welcome() {
         <Row>
           <Col className='landing-text'>
             <h1>¿Listo para mandar todo a la #$&*%?</h1>
-            <Button variant='primary border'>Unirse al bardo</Button>
+            <AuthModal text="Unirse al bardo"/>
           </Col>
         </Row>
 

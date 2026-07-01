@@ -81,7 +81,11 @@ body {
 
 /* Estilos para AuthForm */
 .auth-section {
-  background-color: var(--color-primary-background-darker);
+  background-color: transparent ;/*var(--color-primary-background-darker);*/
+}
+
+.modal-content {
+  background-color: var(--bs-dark);
 }
 
 .auth-card {
