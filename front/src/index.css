@@ -1,112 +1,194 @@
-@import url('https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400..700&display=swap");
 
-:root{
-    --color-primary-background-lighter:  #F7C8C8;
-    --color-primary-background-light:    #CC8C8C;
-    --color-primary-background:          #AA6060;
-    --color-primary-background-dark:     #803F3F;
-    --color-primary-background-darker:   #6F2222;
+:root {
+  --color-primary-background-lighter: #f7c8c8;
+  --color-primary-background-light: #cc8c8c;
+  --color-primary-background: #aa6060;
+  --color-primary-background-dark: #803f3f;
+  --color-primary-background-darker: #6f2222;
 
-    --color-secondary-background-lighter:#F7DDC8;
-    --color-secondary-background-light:  #CCA98C;
-    --color-secondary-background:        #AA8260;
-    --color-secondary-background-dark:   #805D3F;
-    --color-secondary-background-darker: #6F4522;
+  --color-secondary-background-lighter: #f7ddc8;
+  --color-secondary-background-light: #cca98c;
+  --color-secondary-background: #aa8260;
+  --color-secondary-background-dark: #805d3f;
+  --color-secondary-background-darker: #6f4522;
 
-    --color-primary-lighter:    #EC7154;
+  --color-primary-lighter: #ec7154;
 
-    --color-primary-light:      #DC4927;
+  --color-primary-light: #dc4927;
 
-    --color-primary:            #B32F10;
-    --color-primary-rgb:      179, 47, 16;
+  --color-primary: #b32f10;
+  --color-primary-rgb: 179, 47, 16;
 
-    --color-primary-dark:       #911C00;
+  --color-primary-dark: #911c00;
 
-    --color-primary-darker:     #671400;
+  --color-primary-darker: #671400;
 
-    --color-success-lighter:    #D8E6BA;
-    --color-success-light:      #AABE82;
-    --color-success:            #889F5A;
-    --color-success-dark:       #63783B;
-    --color-success-darker:     #506820;
+  --color-success-lighter: #d8e6ba;
+  --color-success-light: #aabe82;
+  --color-success: #889f5a;
+  --color-success-dark: #63783b;
+  --color-success-darker: #506820;
 }
 
-body{
-    font-family: 'AR One Sans', 'Sans Serif';
-    background-color: var(--bs-primary-bg);
-    color: var(--bs-light);
-    padding-top: 70px;
+body {
+  font-family: "AR One Sans", "Sans Serif";
+  background-color: var(--bs-primary-bg);
+  color: var(--bs-light);
+  padding-top: 70px;
 }
 
-.landing-text{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-    padding-inline: 2rem;
+.landing-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  padding-inline: 2rem;
 }
 
-.landing-text h1{
-    font-size: 4rem;
-    font-weight: 700;
+.landing-text h1 {
+  font-size: 4rem;
+  font-weight: 700;
 }
 
-.landing-text h2{
-    font-size: 2.5rem;
-    font-weight: 700;
+.landing-text h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
 .landing-text h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .landing-text p {
-    font-size: 1rem;
-    font-weight: 600;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .landing-text button {
-    margin-inline: auto;
+  margin-inline: auto;
 }
 
-.landing-image{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding-inline: 4rem;
+.landing-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-inline: 4rem;
 }
 
 /* Estilos para AuthForm */
 .auth-section {
-    background-color: var(--color-primary-background-darker);
+  background-color: var(--color-primary-background-darker);
 }
 
 .auth-card {
-    background-color: transparent !important;
-    border: none !important;
-    width: 100%;
-    max-width: 400px;
+  background-color: transparent !important;
+  border: none !important;
+  width: 100%;
+  max-width: 400px;
 }
 
 .auth-error-text {
-    font-size: 0.85rem;
+  font-size: 0.85rem;
 }
 
 .auth-button {
-    background-color: var(--color-primary) !important;
-    border-color: var(--color-primary-light) !important;
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary-light) !important;
 }
 
 .auth-alert {
-    background-color: var(--color-primary-background-lighter) !important;
-    color: var(--color-primary-darker) !important;
-    border: none !important;
+  background-color: var(--color-primary-background-lighter) !important;
+  color: var(--color-primary-darker) !important;
+  border: none !important;
 }
 
 .auth-link {
-    color: var(--color-primary-light);
+  color: var(--color-primary-light);
+}
+
+.profile-page {
+  min-height: 100vh;
+}
+
+.profile-header {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-background-darker) 0%,
+    var(--color-primary-background-dark) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-header__label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.profile-header__nickname {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+}
+
+.profile-avatar {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-primary-darker);
+  background: var(--color-primary-background-lighter);
+  border: 3px solid var(--color-primary-light);
+}
+
+.profile-stat {
+  display: flex;
+  flex-direction: column;
+  min-width: 5rem;
+}
+
+.profile-stat__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.profile-stat__label {
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+.profile-section-title {
+  font-weight: 700;
+}
+
+.profile-empty {
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.post-card {
+  background-color: rgba(0, 0, 0, 0.12);
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.post-card__body {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-card__thumbnail {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
 }
