@@ -45,17 +45,15 @@ export default function AuthForm({tipo}: AuthFormProps) {
     }
 
 return (
-    <>
         <section
-            className="d-flex justify-content-center align-items-center auth-section"
-            style={{ minHeight: "100vh", padding: "40px 20px" }}
+            className="d-flex justify-content-center align-items-center auth-section bg-none"
         >
             <div
                 className="card border-0 shadow-lg"
                 style={{
                     width: "100%",
-                    maxWidth: "430px",
-                    backgroundColor: "#212529",
+                    maxWidth: "512px",
+                    backgroundColor: "var(--bs-dark)",
                     borderRadius: "18px",
                     boxShadow: "0 15px 40px rgba(0,0,0,.45)",
                     overflow: "hidden"
@@ -162,7 +160,4 @@ return (
                 </div>
             </div>
         </section>
-
-        <Footer />
-    </>
 ); }
