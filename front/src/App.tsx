@@ -1,3 +1,9 @@
+// Source - https://stackoverflow.com/a/77438775
+// Posted by Fox Desert, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-07-01, License - CC BY-SA 4.0
+
+/// <reference types="vite-plugin-svgr/client" />
+
 import { Route, Routes, useLocation } from "react-router";
 import Home from "./pages/Home";
 import Welcome from "./pages/Welcome";
