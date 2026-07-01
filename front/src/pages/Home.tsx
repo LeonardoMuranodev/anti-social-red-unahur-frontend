@@ -1,12 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
-import { Navbar, Container as BsContainer, Nav, Button as BsButton } from 'react-bootstrap';
-import { Link } from 'react-router';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button, ButtonGroup, Form, InputGroup, Stack } from 'react-bootstrap';
 import Post from '../components/Post';
-import { AuthContextGlobal } from '../context/AuthContext';
 import Footer from '../components/Footer';
 import NavigationBar from '../components/Navbar';
 
