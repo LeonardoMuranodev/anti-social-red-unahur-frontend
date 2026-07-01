@@ -9,6 +9,8 @@ import Post from '../components/Post';
 import { AuthContextGlobal } from '../context/AuthContext';
 import Footer from '../components/Footer';
 
+import Logo from '../assets/logo.svg?react';
+
 function Home() {
 
   const { logout } = useContext(AuthContextGlobal);
@@ -55,6 +57,7 @@ function Home() {
             href="/"
             className="fw-bold text-danger"
           >
+            <Logo/>
             antiSocial
           </Navbar.Brand>
 
