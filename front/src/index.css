@@ -124,6 +124,8 @@ body {
 }
 
 .profile-header {
+  
+  background-color: var(--color-primary-background-dark);
   background: linear-gradient(
     135deg,
     var(--color-primary-background-darker) 0%,
@@ -133,6 +135,7 @@ body {
 }
 
 .profile-header__label {
+  color: white!important;
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -168,10 +171,12 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.1;
+  color: white!important;
 }
 
 .profile-stat__label {
   font-size: 0.9rem;
+  color: white!important;
   opacity: 0.75;
 }
 
@@ -185,7 +190,7 @@ body {
 }
 
 .post-card {
-  background-color: rgba(0, 0, 0, 0.12);
+  background-color: var(--bs-primary-bg);
   border-color: rgba(255, 255, 255, 0.12) !important;
 }
 

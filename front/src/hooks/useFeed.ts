@@ -5,7 +5,7 @@ import { PostInterface } from "../interfaces/post"
 
 export const useFeed = () => {
     const [posts, setPosts] = useState<PostInterface[]>([])
-    const [currentFeed, setCurrentFeed] = useState<"mi_feed" | "global_feed" | "personal_feed">("mi_feed")
+    const [currentFeed, setCurrentFeed] = useState<"mi_feed" | "global_feed" | "personal_feed">("global_feed")
     const {user} = useContext(AuthContextGlobal)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>("")

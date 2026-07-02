@@ -34,12 +34,16 @@ function Profile() {
   return (
     <>
       <NavigationBar />
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <Container fluid className="profile-page py-4">
         <Row className="justify-content-center">
           <Col xs={12} lg={8} xl={7}>
             <Stack gap={4}>
               
-              <section className="profile-header rounded p-4 bg-dark text-white border border-secondary">
+              <section className="profile-header rounded p-4 bg-dark border border-secondary">
                 <Row className="align-items-center g-4 mb-4">
                   <Col xs="auto">
                     <div className="profile-avatar" aria-hidden="true" style={{ width: '80px', height: '80px', fontSize: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#495057', borderRadius: '50%' }}>
