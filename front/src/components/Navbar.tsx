@@ -83,7 +83,7 @@ export default function NavigationBar() {
         variant="dark"
         className="border-bottom border-primary shadow-sm mb-6"
         style={{
-          position: 'sticky',
+          position: 'fixed',
           top: 0,
           width: '100%',
           zIndex: 999,

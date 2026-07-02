@@ -12,13 +12,15 @@ function Home() {
   return (
     <main className='d-flex flex-column'>
       <NavigationBar/>
-
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <Container fluid>
         <Row className='justify-content-end'>
           <Col sm={8} md={6} className='main-content p-2 align-self-start'>
             <Stack gap={2}>
               <PostForm/>
-
               <FeedSection/>
             </Stack>
           </Col>
