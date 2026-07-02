@@ -196,3 +196,46 @@ body {
   height: 5rem;
   object-fit: cover;
 }
+.landing-container {
+  overflow-x: hidden;
+}
+
+.landing-text {
+  padding: 2rem;
+}
+
+.landing-image {
+  padding: 2rem;
+  text-align: center;
+}
+
+.landing-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .landing-text {
+    padding: 1.5rem 1rem;
+  }
+
+  .landing-image {
+    padding: 1rem;
+  }
+
+  .landing-text h1 {
+    font-size: 2rem;
+  }
+
+  .landing-text h2 {
+    font-size: 1.5rem;
+  }
+
+  .landing-text h3 {
+    font-size: 1.2rem;
+  }
+}
+
+body {
+  padding-top: 0;
+}

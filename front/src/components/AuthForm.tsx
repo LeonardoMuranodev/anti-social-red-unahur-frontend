@@ -11,27 +11,27 @@ interface AuthFormProps {
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-export default function AuthForm({tipo}: AuthFormProps) {
+export default function AuthForm({ tipo }: AuthFormProps) {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [errorForm, setErrorForm] = useState<string>("");
+    const [errorForm, setErrorForm] = useState("");
+    const [formEnviado, setFormEnviado] = useState(false);
 
     const { login } = useContext(AuthContextGlobal);
     const navigate = useNavigate();
 
-    const [formEnviado, setFormEnviado] = useState<boolean>(false);
-
-    const titleText = tipo == "login" ? "Iniciar Sesión" : "Registrarse"
+    const titleText = tipo === "login" ? "Iniciar Sesión" : "Registrarse";
 
     const FormSubmit = async (data: any) => {
         setErrorForm("");
-        setFormEnviado(true)
+        setFormEnviado(true);
 
         await wait(1000);
+
         try {
-            if (tipo === 'login') {
+            if (tipo === "login") {
                 const user = await loginUser(data.nickname, data.password);
                 login(user);
-                navigate("/user")
+                navigate("/user");
             } else {
                 await registerUser(data.nickname, data.password);
                 navigate("/login");
@@ -39,48 +39,33 @@ export default function AuthForm({tipo}: AuthFormProps) {
         } catch (err: any) {
             setErrorForm(err.message);
         } finally {
-            setFormEnviado(false)
-            setErrorForm("")
+            setFormEnviado(false);
         }
-    }
+    };
 
-return (
-        <section
-            className="d-flex justify-content-center align-items-center auth-section bg-none"
-        >
+    return (
+        <section className="auth-section d-flex align-items-center justify-content-center px-3 py-5">
             <div
-                className="card border-0 shadow-lg"
+                className="card border-0 shadow-lg w-100"
                 style={{
-                    width: "100%",
-                    maxWidth: "512px",
+                    maxWidth: "520px",
                     backgroundColor: "var(--bs-dark)",
                     borderRadius: "18px",
-                    boxShadow: "0 15px 40px rgba(0,0,0,.45)",
                     overflow: "hidden"
                 }}
             >
-                <div className="card-body p-5">
+                <div className="card-body p-4 p-sm-5">
 
                     <div className="text-center mb-4">
-                        <h2 className="fw-bold text-danger mb-2">
-                            antiSocial
-                        </h2>
-
-                        <h4 className="text-white">
-                            {titleText}
-                        </h4>
-
-                        <p className="text-secondary mb-0">
-                            Acá nadie se salva.
-                        </p>
+                        <h2 className="fw-bold text-danger mb-2">antiSocial</h2>
+                        <h4 className="text-white mb-1">{titleText}</h4>
+                        <p className="text-secondary small mb-0">Acá nadie se salva.</p>
                     </div>
 
                     <form onSubmit={handleSubmit(FormSubmit)} noValidate>
 
                         <div className="mb-3">
-                            <label htmlFor="nickname" className="form-label text-white fw-semibold">
-                                Nickname
-                            </label>
+                            <label className="form-label text-white fw-semibold">Nickname</label>
 
                             <input
                                 {...register("nickname", {
@@ -89,22 +74,22 @@ return (
                                     pattern: /^[a-zA-Z0-9\s]+$/
                                 })}
                                 type="text"
-                                className="form-control"
-                                id="nickname"
+                                className={`form-control bg-white text-dark border-0 ${
+                                    errors.nickname ? "border border-warning" : ""
+                                }`}
                                 placeholder="Ej: ddd"
+                                autoComplete="username"
                             />
 
-                            <div className="text-warning mt-1 auth-error-text">
-                                {errors.nickname?.type === "required" && "Este campo es obligatorio"}
+                            <small className="text-warning d-block mt-1">
+                                {errors.nickname?.type === "required" && "Obligatorio"}
                                 {errors.nickname?.type === "minLength" && "Mínimo 3 caracteres"}
-                                {errors.nickname?.type === "pattern" && "El nickname es incorrecto"}
-                            </div>
+                                {errors.nickname?.type === "pattern" && "Formato inválido"}
+                            </small>
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="password" className="form-label text-white fw-semibold">
-                                Contraseña
-                            </label>
+                            <label className="form-label text-white fw-semibold">Contraseña</label>
 
                             <input
                                 {...register("password", {
@@ -112,52 +97,56 @@ return (
                                     minLength: 3
                                 })}
                                 type="password"
-                                className="form-control"
-                                id="password"
+                                className={`form-control bg-white text-dark border-0 ${
+                                    errors.password ? "border border-warning" : ""
+                                }`}
                                 placeholder="••••••"
+                                autoComplete="current-password"
                             />
 
-                            <div className="text-warning mt-1 auth-error-text">
-                                {errors.password?.type === "required" && "Este campo es obligatorio"}
+                            <small className="text-warning d-block mt-1">
+                                {errors.password?.type === "required" && "Obligatorio"}
                                 {errors.password?.type === "minLength" && "Mínimo 3 caracteres"}
-                            </div>
+                            </small>
                         </div>
 
                         <button
                             type="submit"
                             disabled={formEnviado}
-                            className="btn btn-danger w-100 fw-bold py-2 mb-3"
+                            className="btn btn-danger w-100 fw-bold py-2"
                         >
-                            {!formEnviado ? titleText : "Procesando..."}
+                            {formEnviado ? "Procesando..." : titleText}
                         </button>
                     </form>
 
                     {errorForm && (
-                        <div className="alert alert-danger text-center auth-alert" role="alert">
+                        <div className="alert alert-danger text-center mt-3 py-2">
                             {errorForm}
                         </div>
                     )}
 
-                    <hr className="border-secondary" />
-
-                    <div className="text-center text-white">
-                        <p className="mb-1">
-                            {tipo == "login"
-                                ? "¿No tenes una cuenta?"
-                                : "¿Ya tenes una cuenta?"}
+                    <div className="text-center mt-4 text-white">
+                        <p className="mb-1 small">
+                            {tipo === "login"
+                                ? "¿No tenés una cuenta?"
+                                : "¿Ya tenés una cuenta?"}
                         </p>
 
                         <Link
-                            to={tipo == "login" ? "/signup" : "/login"}
+                            to={tipo === "login" ? "/signup" : "/login"}
                             className="text-danger fw-bold text-decoration-none"
                         >
-                            {tipo == "login"
+                            {tipo === "login"
                                 ? "Registrate acá"
-                                : "Inicia sesión acá"}
+                                : "Iniciá sesión acá"}
                         </Link>
+                        
                     </div>
-
+                                    
                 </div>
             </div>
+          
         </section>
-); }
+     
+    );
+}
