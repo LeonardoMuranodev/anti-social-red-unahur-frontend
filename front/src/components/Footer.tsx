@@ -9,7 +9,7 @@ function Footer() {
         <Row className="text-center text-md-start">
 
           <Col md={4} className="mb-3">
-            <h5 className="text-danger">antiSocial </h5>
+            <h5 className="text-danger">antiSocial</h5>
             <p className="small text-secondary">
               worse is better.<br />
               sin algoritmos. sin filtros. sin esperanza.

@@ -16,7 +16,9 @@ import PageTransition from "./animations/PageTransition";
 function App() {
 
   const location = useLocation();
-
+  if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
   return (
   <>
       <AnimatePresence mode="wait">
