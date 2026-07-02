@@ -12,8 +12,11 @@ export default function Welcome() {
   return (
     <>
       <Container fluid className='landing-container'>
-        <Row>
-          <Col className='landing-text'>
+        <Row className='justify-content-center'>
+          <Col sm={5} className='landing-image d-none d-sm-block'>
+              <img src={Dumpster} width='100%' className='img-fluid object-fit-contain' alt={Dumpster}/>
+          </Col>
+          <Col sm={7} className='landing-text'>
            <h1>
               Acá nadie se salva.
            </h1>
@@ -26,17 +29,11 @@ export default function Welcome() {
            </h2>
            <AuthModal text="veni y decilo de frente"/>
           </Col>
-          <Col sm={5} className='landing-image d-none d-sm-block'>
-              <img src={Dumpster} className='img-fluid object-fit-contain' alt={Dumpster}/>
-          </Col>
         </Row>
 
         <br/>
 
         <Row>
-          <Col sm={5} className='landing-image'>
-           captura de un post
-          </Col>
           <Col className='landing-text'>
             <h2>
                 Sin anuncios ni seguimiento
@@ -56,6 +53,9 @@ export default function Welcome() {
             <p>
                 Nuestro modelo de negocio de última generación nos permite mantener nuestro sitio online de forma 100% gratuita para siempre*.
             </p>
+          </Col>
+          <Col sm={5} className='landing-image'>
+           captura de un post
           </Col>
         </Row>
 
