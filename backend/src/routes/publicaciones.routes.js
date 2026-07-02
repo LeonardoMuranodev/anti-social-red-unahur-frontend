@@ -25,7 +25,7 @@ const {
     validarPublicacionYComentarioId
 } = require("../middlewares/comentarios.middlewares")
 
-const { validarUsuarioExistenteEnBody } = require("../middlewares/usuarios.middlewares");
+const { validarUsuarioExistenteEnBody, validarUsuarioId } = require("../middlewares/usuarios.middlewares");
 
 // midleware del multer paara subida de imagenes
 
@@ -58,5 +58,10 @@ router.delete('/:postId/imagenes/:imageId', validarPublicacionEImagenId, postIma
 // Relacion Post - Comment
 router.get('/:id/comentarios', validarPublicacionId, comentariosController.obtenerComentariosDeUnPost)
 router.post('/:id/comentarios', validarPublicacionId, validarComentario, validarUsuarioExistenteEnBody, comentariosController.crearComentarioEnPost)
+
+
+//feed
+router.get('/feed/userId', validarUsuarioId, publicacionesController.obtenerFeed)
+
 
 module.exports = router

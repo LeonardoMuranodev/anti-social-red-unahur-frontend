@@ -1,8 +1,8 @@
-import type { Post } from "../interfaces/post";
+import type { PostInterface } from "../interfaces/post";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const getPublicaciones = async (): Promise<Post[]> => {
+export const getPublicaciones = async (): Promise<PostInterface[]> => {
   const response = await fetch(`${API_URL}/publicaciones`);
 
   if (!response.ok) {
@@ -12,8 +12,8 @@ export const getPublicaciones = async (): Promise<Post[]> => {
   return response.json();
 };
 
-export const getFeedUser = async (): Promise<Post[]> => {
-  const response = await fetch(`${API_URL}/publicaciones`);
+export const getFeedUser = async (user_nickname:string): Promise<PostInterface[]> => {
+  const response = await fetch(`${API_URL}/publicaciones/feed/user_nickname`);
 
   if (!response.ok) {
     throw new Error("Error al obtener las publicaciones");

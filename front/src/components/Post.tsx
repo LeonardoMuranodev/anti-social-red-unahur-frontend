@@ -1,6 +1,6 @@
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router";
-import type { Post as PostData } from "../interfaces/post";
+import type { PostInterface as PostData } from "../interfaces/post";
 
 interface PostProps {
   post?: PostData;

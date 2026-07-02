@@ -16,9 +16,12 @@ const validarUsuarioSchema = (req, res, next) => {
 const validarUsuarioId = async (req, res, next) => {
     try {
         const { id } = req.params
+        const { userId } = req.params
+
+        const idValido = id | userId
 
         const usuario = await User.findOne({
-            nickname: id
+            nickname: idValido
         }).select("nickname")
 
         if (!usuario) {

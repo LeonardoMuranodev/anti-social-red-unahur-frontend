@@ -1,30 +1,48 @@
 import { useContext, useEffect, useState } from "react"
-import { getFeedUser, getPublicaciones } from "../services/postServices"
+import { getComentariosCount, getFeedUser, getPublicaciones } from "../services/postServices"
 import { AuthContextGlobal } from "../context/AuthContext"
-import { Post } from "../interfaces/post"
-
-const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+import { PostInterface } from "../interfaces/post"
 
 export const useFeed = () => {
-    const [posts, setPosts] = useState<Post[]>([])
+    const [posts, setPosts] = useState<PostInterface[]>([])
     const [currentFeed, setCurrentFeed] = useState<"mi_feed" | "global_feed">("mi_feed")
     const {user} = useContext(AuthContextGlobal)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string>("")
+
+    const postsWithCommentCount = async (post: PostInterface[]) => {
+        return await Promise.all(
+            post.map(async (p) => {
+                const count = await getComentariosCount(p._id);
+                return {
+                    ...p,
+                    commentCount: count
+                };
+            })
+        );
+    }
 
     useEffect(() => {
         const currentPosts = async () => {
-            setIsLoading(true)
+            try {
+                setIsLoading(true)
             if(currentFeed === "global_feed") {
                 const allPost = await getPublicaciones()
-                const allPostWithoutUser = allPost.filter(p => p.user_nickname != user.nickname)
-                setPosts(allPostWithoutUser)
+                const allPostWithoutUser = allPost.filter(p => p.user_nickname != user?.nickname)
+                const postsGlobalWithCommentCount = await postsWithCommentCount(allPostWithoutUser)
+                setPosts(postsGlobalWithCommentCount)
             } else {
-                const feedUser = await getFeedUser()
-                setPosts(feedUser)
+                const feedUser = await getFeedUser(user?.id)
+                const postsFeedWithCommentCount = await postsWithCommentCount(feedUser)
+                setPosts(postsFeedWithCommentCount)
             }
-            await wait(1500);
             console.log(currentFeed)
-            setIsLoading(false)
+            } catch (error:any) {
+                setError(`Ocurrio un error a la hora de obtener ${currentFeed === "mi_feed" ? "tu feed" : "el feed global"} : ${error.message}`)
+            } finally {
+                setIsLoading(false)
+                setError("")
+            }
         }
 
         currentPosts()
@@ -34,6 +52,7 @@ export const useFeed = () => {
     return {
         posts,
         isLoading,
+        error,
         currentFeed,
         setCurrentFeed
     }

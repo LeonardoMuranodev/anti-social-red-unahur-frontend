@@ -198,10 +198,55 @@ const eliminarPublicacion = async (req, res) => {
     }
 }
 
+const obtenerFeed = async (req, res) => {
+    /* #swagger.tags = ['Usuarios']
+        #swagger.summary = 'Obtiene los detalles de un usuario por su ID'
+        #swagger.parameters['id'] = {
+            in: 'path',
+            description: 'ID cadena de texto del usuario a buscar',
+            required: true,
+            type: 'string'
+        }
+        #swagger.responses[200] = {
+            description: 'Usuario encontrado exitosamente.'
+        }
+        #swagger.responses[404] = {
+            description: 'Usuario no encontrado.'
+        }
+    */
+
+
+    try {
+        const usuario = req.usuario
+
+        const seguidos = usuario.seguidos
+
+        const publicaciones = await Post.find({user_nickname: { $in: seguidos}})
+        .populate("user_nickname", "nickname")
+        .populate("etiquetas", "name")
+        .populate("imagenes", "url")
+        .sort({ createdAt: -1 })
+        .select("-createdAt -updatedAt -__v")
+
+        const publicacionesMapeadas = publicaciones.map(p => ({
+            ...p.toObject(),
+            user_nickname: p.user_nickname.nickname,
+            imagenes: p.imagenes.map(e => e.url),
+            etiquetas: p.etiquetas.map(e => e.name)
+        }));
+
+        res.status(200).json(publicacionesMapeadas)
+
+    } catch (error) {
+        res.status(500).json({ error: `Hubo un error a la hora de obtener el feed del usuario: ${error.message}` })
+    }
+}
+
 module.exports = {
     obtenerPublicaciones,
     obtenerPublicacion,
     crearPublicacion,
     editarPublicacion,
-    eliminarPublicacion
+    eliminarPublicacion,
+    obtenerFeed
 }
