@@ -22,6 +22,16 @@ export const getFeedUser = async (user_nickname:string): Promise<PostInterface[]
   return response.json();
 };
 
+export const getFeedPersonalUser = async (user_nickname:string): Promise<PostInterface[]> => {
+  const response = await fetch(`${API_URL}/publicaciones/usuario/${user_nickname}`);
+
+  if (!response.ok) {
+    throw new Error("Error al obtener las publicaciones");
+  }
+
+  return response.json();
+};
+
 export const getComentariosCount = async (postId: string): Promise<number> => {
   const response = await fetch(
     `${API_URL}/publicaciones/${postId}/comentarios`,
