@@ -18,7 +18,7 @@ const obtenerPublicaciones = async (req, res) => {
 
         const publicacionesMapeadas = publicaciones.map(p => ({
             ...p.toObject(),
-            user_nickname: p.user_nickname.nickname,
+            user_nickname: p.user_nickname ? p.user_nickname.nickname : "Usuario desconocido",
             imagenes: p.imagenes.map(e => e.url),
             etiquetas: p.etiquetas.map(e => e.name)
         }));
@@ -217,9 +217,11 @@ const obtenerFeed = async (req, res) => {
 
 
     try {
-        const usuario = req.usuario
+        const usuarioCompleto = await User.findOne({ nickname: req.usuario.nickname });
 
-        const seguidos = usuario.seguidos
+        const seguidos = usuarioCompleto ? usuarioCompleto.seguidos : []
+
+        console.log(usuarioCompleto, seguidos)
 
         const publicaciones = await Post.find({user_nickname: { $in: seguidos}})
         .populate("user_nickname", "nickname")
@@ -228,9 +230,11 @@ const obtenerFeed = async (req, res) => {
         .sort({ createdAt: -1 })
         .select("-createdAt -updatedAt -__v")
 
+        console.log(publicaciones)
+
         const publicacionesMapeadas = publicaciones.map(p => ({
             ...p.toObject(),
-            user_nickname: p.user_nickname.nickname,
+            user_nickname: p.user_nickname ? p.user_nickname.nickname : "Usuario desconocido",
             imagenes: p.imagenes.map(e => e.url),
             etiquetas: p.etiquetas.map(e => e.name)
         }));

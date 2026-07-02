@@ -61,7 +61,7 @@ router.post('/:id/comentarios', validarPublicacionId, validarComentario, validar
 
 
 //feed
-router.get('/feed/userId', validarUsuarioId, publicacionesController.obtenerFeed)
+router.get('/feed/:userId', validarUsuarioId, publicacionesController.obtenerFeed)
 
 
 module.exports = router

@@ -13,7 +13,7 @@ export const getPublicaciones = async (): Promise<PostInterface[]> => {
 };
 
 export const getFeedUser = async (user_nickname:string): Promise<PostInterface[]> => {
-  const response = await fetch(`${API_URL}/publicaciones/feed/user_nickname`);
+  const response = await fetch(`${API_URL}/publicaciones/feed/${user_nickname}`);
 
   if (!response.ok) {
     throw new Error("Error al obtener las publicaciones");

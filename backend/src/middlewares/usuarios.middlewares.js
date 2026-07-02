@@ -18,7 +18,7 @@ const validarUsuarioId = async (req, res, next) => {
         const { id } = req.params
         const { userId } = req.params
 
-        const idValido = id | userId
+        const idValido = id || userId
 
         const usuario = await User.findOne({
             nickname: idValido

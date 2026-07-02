@@ -26,19 +26,20 @@ export const useFeed = () => {
         const currentPosts = async () => {
             try {
                 setIsLoading(true)
-            if(currentFeed === "global_feed") {
-                const allPost = await getPublicaciones()
-                const allPostWithoutUser = allPost.filter(p => p.user_nickname != user?.nickname)
-                const postsGlobalWithCommentCount = await postsWithCommentCount(allPostWithoutUser)
-                setPosts(postsGlobalWithCommentCount)
-            } else {
-                const feedUser = await getFeedUser(user?.id)
-                const postsFeedWithCommentCount = await postsWithCommentCount(feedUser)
-                setPosts(postsFeedWithCommentCount)
-            }
-            console.log(currentFeed)
+                if(currentFeed === "global_feed") {
+                    const allPost = await getPublicaciones()
+                    const allPostWithoutUser = allPost.filter(p => p.user_nickname != user?.nickname)
+                    const postsGlobalWithCommentCount = await postsWithCommentCount(allPostWithoutUser)
+                    setPosts(postsGlobalWithCommentCount)
+                } else {
+                    const feedUser = await getFeedUser(user?.nickname)
+                    const postsFeedWithCommentCount = await postsWithCommentCount(feedUser)
+                    setPosts(postsFeedWithCommentCount)
+                }
+                console.log(currentFeed)
             } catch (error:any) {
                 setError(`Ocurrio un error a la hora de obtener ${currentFeed === "mi_feed" ? "tu feed" : "el feed global"} : ${error.message}`)
+                setPosts([])
             } finally {
                 setIsLoading(false)
                 setError("")
