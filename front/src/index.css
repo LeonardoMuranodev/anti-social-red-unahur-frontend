@@ -239,3 +239,13 @@ body {
 body {
   padding-top: 0;
 }
+
+.img-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.img-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
