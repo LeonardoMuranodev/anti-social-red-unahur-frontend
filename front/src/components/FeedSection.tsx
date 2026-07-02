@@ -7,9 +7,9 @@ export default function FeedSection() {
 
     const {posts, isLoading, currentFeed, setCurrentFeed, error} = useFeed()
 
-    const buttonMiFeedStyles = currentFeed === "mi_feed" ? "primary" : "outline-secondary"
+    const buttonMiFeedStyles = currentFeed === "mi_feed" ? "primary" : "outline-primary text-light"
     
-    const buttonGlobalFeedStyles = currentFeed === "global_feed" ? "primary" : "outline-secondary"
+    const buttonGlobalFeedStyles = currentFeed === "global_feed" ? "primary" : "outline-primary text-light"
 
 
     return (

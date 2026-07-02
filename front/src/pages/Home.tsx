@@ -16,16 +16,6 @@ function Home() {
         <Row className='justify-content-end'>
           <Col sm={8} md={6} className='main-content p-2 align-self-start'>
             <Stack gap={2}>
-              <InputGroup>
-                <Form.Control
-                  placeholder="Buscar"
-                  aria-label="Buscar"
-                  aria-describedby="basic-addon2"
-                />
-                <Button variant="secondary" id="button-addon2">
-                  B
-                </Button>
-              </InputGroup>
               <Form>
                 <Form.Group className="mb-3" controlId="">
                   <Form.Control

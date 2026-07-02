@@ -5,7 +5,6 @@ import Dumpster from '../assets/hero.png';
 import { Button } from 'react-bootstrap';
 import Footer from "../components/Footer";
 import NavigationBar from '../components/Navbar';
-import { Link } from 'react-router';
 import AuthModal from '../components/AuthModal';
 export default function Welcome() {
 
