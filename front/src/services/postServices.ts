@@ -12,6 +12,16 @@ export const getPublicaciones = async (): Promise<Post[]> => {
   return response.json();
 };
 
+export const getFeedUser = async (): Promise<Post[]> => {
+  const response = await fetch(`${API_URL}/publicaciones`);
+
+  if (!response.ok) {
+    throw new Error("Error al obtener las publicaciones");
+  }
+
+  return response.json();
+};
+
 export const getComentariosCount = async (postId: string): Promise<number> => {
   const response = await fetch(
     `${API_URL}/publicaciones/${postId}/comentarios`,

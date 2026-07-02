@@ -2,9 +2,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button, ButtonGroup, Form, InputGroup, Stack } from 'react-bootstrap';
-import Post from '../components/Post';
 import Footer from '../components/Footer';
 import NavigationBar from '../components/Navbar';
+import FeedSection from '../components/FeedSection';
 
 function Home() {
 
@@ -40,16 +40,7 @@ function Home() {
                   </ButtonGroup>
                 </Form.Group>
               </Form>
-              <Stack gap={1}>
-                <ButtonGroup>
-                  <Button variant='primary border'>Mi Feed</Button>
-                  <Button variant='secondary border'>Feed Global</Button>
-                </ButtonGroup>
-                <Post id={1} />
-                <Post id={2} />
-                <Post id={3} />
-                <Post id={4} />
-              </Stack>
+              <FeedSection></FeedSection>
             </Stack>
           </Col>
           <Col sm={2} md={3} className='main-content xs-order-first'>pfp</Col>
