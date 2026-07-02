@@ -1,3 +1,5 @@
+import { CommentInterface } from "./comment";
+
 export interface PostInterface {
   _id: string;
   user_nickname: string;
@@ -5,5 +7,6 @@ export interface PostInterface {
   description?: string;
   imagenes: string[];
   etiquetas: string[];
-  commentCount: number
+  commentCount: number;
+  comments?: CommentInterface[]
 }

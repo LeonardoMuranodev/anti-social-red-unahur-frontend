@@ -27,7 +27,7 @@ function App() {
           <Route element={<ProtectedRoute/>}>
             <Route path='/' element={<PageTransition><Home/></PageTransition>}/>
             <Route path='/user/*' element={<PageTransition><Profile/></PageTransition>}/>
-            <Route path='/post/*' element={<PageTransition><PostDetail/></PageTransition>}/>
+            <Route path='/post/:idPost' element={<PageTransition><PostDetail/></PageTransition>}/>
           </Route>
 
           {/* Rutas Publicas */}
