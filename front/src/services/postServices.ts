@@ -12,6 +12,22 @@ export const getPublicaciones = async (): Promise<PostInterface[]> => {
   return response.json();
 };
 
+export const createPublicacion = async (postData: { text: string; description: string, user_nickname:string}) => {
+  const response = await fetch(`${API_URL}/publicaciones`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(postData),
+  });
+
+  if (!response.ok) {
+    throw new Error("No se pudo crear la publicación");
+  }
+
+  return response.json();
+};
+
 export const getPublicacion = async (idPost:string): Promise<PostInterface> => {
   const response = await fetch(`${API_URL}/publicaciones/${idPost}`);
 

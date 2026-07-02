@@ -22,7 +22,7 @@ function Home() {
               <FeedSection/>
             </Stack>
           </Col>
-          <Col sm={2} md={3} className='main-content xs-order-first'>pfp</Col>
+          <Col sm={2} md={3} className='main-content xs-order-first'></Col>
         </Row>
       </Container>
       <Footer />
