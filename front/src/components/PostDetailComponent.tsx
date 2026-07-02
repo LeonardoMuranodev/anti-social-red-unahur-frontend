@@ -1,13 +1,23 @@
 import { Badge } from "react-bootstrap";
 import type { PostInterface } from "../interfaces/post";
+import { CommentInterface } from "../interfaces/comment";
+import { useState } from "react";
+import CommentForm from "./CommentForm";
 
 interface Props {
     post: PostInterface;
 }
 
 export default function PostDetailComponent({ post }: Props) {
-    const { user_nickname, text, description, imagenes, etiquetas, commentCount, comments } = post;
+    const [listaComentarios, setListaComentarios] = useState<CommentInterface[]>(post.comments || []);
+    const [contadorComentarios, setContadorComentarios] = useState(post.commentCount || 0);
 
+    const { user_nickname, text, description, imagenes, etiquetas, _id } = post;
+
+    const handleNuevoComentario = (nuevoComentario: CommentInterface) => {
+        setListaComentarios([...listaComentarios, nuevoComentario]);
+        setContadorComentarios(contadorComentarios + 1);
+    };
     return (
         <article className="post-detail-card p-4 text-white">
         <header className="d-flex align-items-center mb-3">
@@ -50,26 +60,35 @@ export default function PostDetailComponent({ post }: Props) {
 
         <section className="mt-4">
             <h3 className="h6 text-white-50 mb-3 text-uppercase tracking-wide">
-            Comentarios ({commentCount || 0})
+                Comentarios ({contadorComentarios})
             </h3>
 
             <div className="d-flex flex-column gap-3">
-            {!comments || comments.length === 0 ? (
-                <p className="text-white-50 fst-italic">No hay comentarios todavía. ¡Sé el primero!</p>
-            ) : (
-                comments.map((comment) => (
-                <div key={comment.id} className="comment-box p-3 shadow-sm">
-                    <div className="d-flex align-items-center mb-2">
-                    <div className="comment-avatar me-2" style={{ width: '28px', height: '28px', fontSize: '12px' }}>
-                        {comment.nickname.charAt(0).toUpperCase()}
-                    </div>
-                    <span className="fw-bold fs-6 text-light">@{comment.nickname}</span>
-                    </div>
-                    <p className="mb-0 text-white-50 ms-4 ps-1">{comment.text}</p>
-                </div>
-                ))
-            )}
+                {listaComentarios.length === 0 ? (
+                    <p className="text-white-50 fst-italic">No hay comentarios todavía. ¡Sé el primero!</p>
+                ) : (
+                    listaComentarios.map((comment) => {
+                        const nombre = comment.nickname || "Usuario";
+                        
+                        const keyId = comment.id || Math.random().toString();
+
+                        return (
+                            <div key={keyId} className="comment-box p-3 shadow-sm">
+                                <div className="d-flex align-items-center mb-2">
+                                    <div className="comment-avatar me-2" style={{ width: '28px', height: '28px', fontSize: '12px' }}>
+                                        {nombre.charAt(0).toUpperCase()}
+                                    </div>
+                                    <span className="fw-bold fs-6 text-light">@{nombre}</span>
+                                </div>
+                                <p className="mb-0 text-white-50 ms-4 ps-1">{comment.text}</p>
+                            </div>
+                        );
+                    })
+                )}
             </div>
+
+            <CommentForm postId={_id} onCommentAdded={handleNuevoComentario} />
+            
         </section>
         </article>
     );

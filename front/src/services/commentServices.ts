@@ -12,3 +12,23 @@ export const getComentariosPublicacion = async (idPost:string): Promise<CommentI
 
   return response.json();
 };
+
+export const createComentario = async (idPost: string, text: string, user_nickname:string): Promise<CommentInterface> => {
+    const response = await fetch(`${API_URL}/publicaciones/${idPost}/comentarios`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            text: text,
+            is_visible: true,
+            user_nickname: user_nickname 
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error("No se pudo publicar el comentario");
+    }
+
+    return response.json();
+};
