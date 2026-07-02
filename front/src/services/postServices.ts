@@ -12,8 +12,8 @@ export const getPublicaciones = async (): Promise<PostInterface[]> => {
   return response.json();
 };
 
-export const getPublicacion = async (id:string): Promise<PostInterface[]> => {
-  const response = await fetch(`${API_URL}/publicaciones/${id}`);
+export const getPublicacion = async (idPost:string): Promise<PostInterface> => {
+  const response = await fetch(`${API_URL}/publicaciones/${idPost}`);
 
   if (!response.ok) {
     throw new Error("Error al obtener las publicaciones");
