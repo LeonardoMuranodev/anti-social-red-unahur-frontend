@@ -64,7 +64,7 @@ export default function NavigationBar() {
         expand="md"
         bg="dark"
         variant="dark"
-        className="border-bottom border-primary shadow-sm"
+        className="border-bottom border-primary shadow-sm mb-6"
         style={{
           position: 'fixed',
           top: 0,
@@ -89,7 +89,7 @@ export default function NavigationBar() {
 
           <Navbar.Collapse>
 
-           <Nav className="ms-auto d-flex flex-column flex-md-row gap-2">
+           <Nav className="ms-auto d-flex flex-column flex-md-row gap-3">
 
             {buttons()}
 

@@ -9,7 +9,7 @@ import NavigationBar from '../components/Navbar';
 function Home() {
 
   return (
-    <>
+    <main className='d-flex flex-column'>
       <NavigationBar/>
 
       <Container fluid>
@@ -56,7 +56,7 @@ function Home() {
         </Row>
       </Container>
       <Footer />
-    </>
+    </main>
   );
 }
 
