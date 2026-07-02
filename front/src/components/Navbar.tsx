@@ -83,7 +83,7 @@ export default function NavigationBar() {
         variant="dark"
         className="border-bottom border-primary shadow-sm mb-6"
         style={{
-          position: 'fixed',
+          position: 'sticky',
           top: 0,
           width: '100%',
           zIndex: 999,
@@ -93,8 +93,8 @@ export default function NavigationBar() {
       >
         <BsContainer fluid>
           <Navbar.Brand
-            as="a"
-            href="/welcome"
+            as={Link}
+            href="/"
             className="fw-bold text-primary fs-2"
           >
             <p>
