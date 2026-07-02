@@ -14,7 +14,6 @@ export default function AuthModal({text}) {
       <Button onClick={handleShow} variant='primary'>{text}</Button>
 
       <Modal show={show} onHide={handleClose} fullscreen='sm-down' className='bg-transparent' centered>
-        <Modal.Header closeButton/>
         <AuthForm tipo='signup'/>
       </Modal>
     </>
