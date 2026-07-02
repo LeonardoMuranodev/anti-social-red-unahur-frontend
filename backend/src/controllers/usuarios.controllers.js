@@ -36,8 +36,7 @@ const obtenerUsuario = async (req, res) => {
 
 
     try {
-        const usuario = await User.findOne(req.usuario)
-        .select("-createdAt -updatedAt -__v -_id -password")
+        const usuario =  req.usuario
 
         res.status(200).json(usuario)
 

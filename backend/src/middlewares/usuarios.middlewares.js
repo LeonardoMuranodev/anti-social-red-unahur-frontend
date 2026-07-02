@@ -20,9 +20,10 @@ const validarUsuarioId = async (req, res, next) => {
 
         const idValido = id || userId
 
-        const usuario = await User.findOne({
-            nickname: idValido
-        }).select("nickname")
+        const usuario = await User.findOne({ nickname: idValido })
+            .populate('seguidores', 'nickname')
+            .populate('seguidos', 'nickname')
+            .select("-password");
 
         if (!usuario) {
             return res.status(404).json({
@@ -51,7 +52,8 @@ const validarUsuarioExistenteEnBody = async (req, res, next) => {
 
         const usuario = await User.findOne({
             nickname: nombre
-        })
+        }).populate('seguidores', 'nickname')
+            .populate('seguidos', 'nickname')
 
         if (!usuario) {
             return res.status(404).json({
