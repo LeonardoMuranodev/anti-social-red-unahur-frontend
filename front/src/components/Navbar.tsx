@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Navbar, Container as BsContainer, Nav, Button as BsButton } from 'react-bootstrap';
+import { Navbar, Container as BsContainer, Nav, Button as BsButton, InputGroup, Form } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { AuthContextGlobal } from '../context/AuthContext';
 import Logo from '../assets/logo.svg?react'
@@ -9,8 +9,10 @@ export default function NavigationBar() {
   const [show, setShow] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   var buttons;
-  
+  var search;
+
   if (!isAuthenticated){
+    search = () => {return(<></>)}
     buttons = () => {return(<><Link to="/login" className="text-decoration-none">
               <BsButton
                 variant="outline-light"
@@ -30,13 +32,28 @@ export default function NavigationBar() {
             </Link></>)}
     }
     else {
-        buttons = () => {return(<>
-              <BsButton as={Link} to="/user"
-                variant="secondary"
-              >
-                Mi Perfil
-              </BsButton>
-        <BsButton onClick={logout} variant='danger'>Cerrar sesión</BsButton>
+        search = () => {return(
+          <Form style={{width:"70%",marginInline:"auto"}}>
+          <InputGroup>
+                <Form.Control
+                  placeholder="Buscar"
+                  aria-label="Buscar"
+                  aria-describedby="basic-addon2"
+                />
+                <BsButton variant="secondary" id="button-addon2">
+                  B
+                </BsButton>
+              </InputGroup>
+              </Form>
+        )}
+        buttons = () => {return(
+        <>    
+          <BsButton as={Link} to="/user"
+            variant="secondary"
+          >
+            Mi Perfil
+          </BsButton>
+          <BsButton onClick={logout} variant='danger'>Cerrar sesión</BsButton>
         </>
         )
     }
@@ -66,7 +83,7 @@ export default function NavigationBar() {
         variant="dark"
         className="border-bottom border-primary shadow-sm mb-6"
         style={{
-          position: 'fixed',
+          position: 'sticky',
           top: 0,
           width: '100%',
           zIndex: 999,
@@ -76,8 +93,8 @@ export default function NavigationBar() {
       >
         <BsContainer fluid>
           <Navbar.Brand
-            as="a"
-            href="/welcome"
+            as={Link}
+            href="/"
             className="fw-bold text-primary fs-2"
           >
             <p>
@@ -89,7 +106,9 @@ export default function NavigationBar() {
 
           <Navbar.Collapse>
 
-           <Nav className="ms-auto d-flex flex-column flex-md-row gap-3">
+            {search()}
+
+           <Nav className="ms-auto px-2 d-flex flex-column flex-md-row gap-3">
 
             {buttons()}
 

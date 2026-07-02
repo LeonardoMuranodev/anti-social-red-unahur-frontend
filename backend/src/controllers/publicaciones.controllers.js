@@ -246,11 +246,42 @@ const obtenerFeed = async (req, res) => {
     }
 }
 
+const obtenerPublicacionesDelUsuario = async (req, res) => {
+    try {
+        const usuarioId = req.usuario._id; 
+
+            console.log(usuarioId)
+
+
+        const publicaciones = await Post.find({ user_nickname: usuarioId })
+            .populate("user_nickname", "nickname")
+            .populate("etiquetas", "name")
+            .populate("imagenes", "url")
+            .sort({ createdAt: -1 })
+            .select("-createdAt -updatedAt -__v");
+
+            console.log(publicaciones)
+
+        const publicacionesMapeadas = publicaciones.map(p => ({
+            ...p.toObject(),
+            user_nickname: p.user_nickname.nickname,
+            imagenes: p.imagenes.map(e => e.url),
+            etiquetas: p.etiquetas.map(e => e.name)
+        }));
+
+        res.status(200).json(publicacionesMapeadas);
+
+    } catch (error) {
+        res.status(500).json({ error: `Error al obtener tus publicaciones: ${error.message}` });
+    }
+}
+
 module.exports = {
     obtenerPublicaciones,
     obtenerPublicacion,
     crearPublicacion,
     editarPublicacion,
     eliminarPublicacion,
-    obtenerFeed
+    obtenerFeed,
+    obtenerPublicacionesDelUsuario
 }

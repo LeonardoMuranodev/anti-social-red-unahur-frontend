@@ -17,7 +17,7 @@ function Error404() {
 
           <p>
             Parece que esta página se perdió en el caos de antiSocial.<br/>
-            O tal vez nunca existió… como la moderación.
+            O tal vez nunca existió…
           </p>
 
           <Button 

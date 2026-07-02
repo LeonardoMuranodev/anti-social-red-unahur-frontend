@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react"
-import { getComentariosCount, getFeedUser, getPublicaciones } from "../services/postServices"
+import { getComentariosCount, getFeedPersonalUser, getFeedUser, getPublicaciones } from "../services/postServices"
 import { AuthContextGlobal } from "../context/AuthContext"
 import { PostInterface } from "../interfaces/post"
 
 export const useFeed = () => {
     const [posts, setPosts] = useState<PostInterface[]>([])
-    const [currentFeed, setCurrentFeed] = useState<"mi_feed" | "global_feed">("mi_feed")
+    const [currentFeed, setCurrentFeed] = useState<"mi_feed" | "global_feed" | "personal_feed">("mi_feed")
     const {user} = useContext(AuthContextGlobal)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>("")
@@ -31,9 +31,13 @@ export const useFeed = () => {
                     const allPostWithoutUser = allPost.filter(p => p.user_nickname != user?.nickname)
                     const postsGlobalWithCommentCount = await postsWithCommentCount(allPostWithoutUser)
                     setPosts(postsGlobalWithCommentCount)
-                } else {
+                } else if (currentFeed === "mi_feed"){
                     const feedUser = await getFeedUser(user?.nickname)
                     const postsFeedWithCommentCount = await postsWithCommentCount(feedUser)
+                    setPosts(postsFeedWithCommentCount)
+                } else {
+                    const feedPersonal = await getFeedPersonalUser(user?.nickname)
+                    const postsFeedWithCommentCount = await postsWithCommentCount(feedPersonal)
                     setPosts(postsFeedWithCommentCount)
                 }
                 console.log(currentFeed)

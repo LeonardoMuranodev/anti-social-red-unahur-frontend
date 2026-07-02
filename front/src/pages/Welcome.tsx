@@ -6,11 +6,12 @@ import Feed from "../assets/feed.png";
 import MiPerfil from "../assets/miPerfil.png";
 import Post from "../assets/Post.png";
 import Footer from "../components/Footer";
-import AuthModal from "../components/AuthModal";
+import AuthModal from '../components/AuthModal';
 
 export default function Welcome() {
   return (
     <>
+
       <Container fluid className="landing-container">
 
         <Row className="align-items-center">

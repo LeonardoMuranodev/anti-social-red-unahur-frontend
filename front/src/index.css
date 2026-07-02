@@ -14,14 +14,10 @@
   --color-secondary-background-darker: #6f4522;
 
   --color-primary-lighter: #ec7154;
-
   --color-primary-light: #dc4927;
-
   --color-primary: #b32f10;
   --color-primary-rgb: 179, 47, 16;
-
   --color-primary-dark: #911c00;
-
   --color-primary-darker: #671400;
 
   --color-success-lighter: #d8e6ba;
@@ -35,7 +31,7 @@ body {
   font-family: "AR One Sans", "Sans Serif";
   background-color: var(--bs-primary-bg);
   color: var(--bs-light);
-  padding-top: 110px;
+  padding-top: 0;
 }
 
 .landing-text {
@@ -45,6 +41,7 @@ body {
   text-align: center;
   flex-direction: column;
   padding-inline: 2rem;
+  padding: 2rem;
 }
 
 .landing-text h1 {
@@ -77,11 +74,18 @@ body {
   align-items: center;
   flex-direction: column;
   padding-inline: 4rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.landing-image img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Estilos para AuthForm */
 .auth-section {
-  background-color: transparent ;/*var(--color-primary-background-darker);*/
+  background-color: transparent;
 }
 
 .modal-content {
@@ -196,24 +200,12 @@ body {
   height: 5rem;
   object-fit: cover;
 }
+
 .landing-container {
   overflow-x: hidden;
 }
 
-.landing-text {
-  padding: 2rem;
-}
-
-.landing-image {
-  padding: 2rem;
-  text-align: center;
-}
-
-.landing-image img {
-  max-width: 100%;
-  height: auto;
-}
-
+/* RESPONSIVE */
 @media (max-width: 767px) {
   .landing-text {
     padding: 1.5rem 1rem;
@@ -236,16 +228,58 @@ body {
   }
 }
 
-body {
-  padding-top: 0;
+/* post detalle */
+.post-detail-wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.post-detail-card {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.post-detail-text {
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.post-detail-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.post-detail-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.comment-box {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-left: 3px solid #0d6efd;
+  border-radius: 4px 8px 8px 4px;
+}
+
+.comment-avatar {
+  width: 36px;
+  height: 36px;
+  background-color: #495057;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
 
 .img-hover {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .img-hover:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
 }

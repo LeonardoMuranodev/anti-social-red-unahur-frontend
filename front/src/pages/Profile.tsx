@@ -6,66 +6,20 @@ import { Button, Spinner, Stack } from "react-bootstrap";
 import { Link, useNavigate } from "react-router";
 import Post from "../components/Post";
 import { AuthContextGlobal } from "../context/AuthContext";
-import type { Post as PostData } from "../interfaces/post";
 import type { User } from "../interfaces/auth";
-import {
-  getComentariosCount,
-  getPublicaciones,
-} from "../services/postServices";
 import { getUserById } from "../services/userServices";
 import NavigationBar from "../components/Navbar";
-
-interface PostWithComments extends PostData {
-  commentCount: number;
-}
+import { useFeed } from "../hooks/useFeed";
 
 function Profile() {
   const { user, logout } = useContext(AuthContextGlobal);
   const navigate = useNavigate();
-
   const [profile, setProfile] = useState<User | null>(user);
-  const [posts, setPosts] = useState<PostWithComments[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { posts, isLoading, error, setCurrentFeed } = useFeed();
 
   useEffect(() => {
-    if (!user?.id) return;
-
-    const loadProfile = async () => {
-      setLoading(true);
-      setError("");
-
-      try {
-        const [userData, allPosts] = await Promise.all([
-          getUserById(user.id),
-          getPublicaciones(),
-        ]);
-
-        setProfile(userData);
-
-        const userPosts = allPosts.filter(
-          (post) => post.user_nickname === userData.nickname,
-        );
-
-        const postsWithComments = await Promise.all(
-          userPosts.map(async (post) => ({
-            ...post,
-            commentCount: await getComentariosCount(post._id),
-          })),
-        );
-
-        setPosts(postsWithComments);
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Error al cargar el perfil",
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProfile();
-  }, [user?.id, user?.nickname]);
+      setCurrentFeed("personal_feed");
+  }, [setCurrentFeed]);
 
   const handleLogout = () => {
     logout();
@@ -138,14 +92,14 @@ function Profile() {
                 <h2 className="profile-section-title h4 mb-0">
                   Mis publicaciones
                 </h2>
-                {!loading && (
+                {!isLoading && (
                   <span className="text-light opacity-75">
                     {posts.length} en total
                   </span>
                 )}
               </div>
 
-              {loading && (
+              {isLoading && (
                 <div className="profile-loading text-center py-5">
                   <Spinner animation="border" variant="light" />
                   <p className="mt-3 mb-0">Cargando perfil...</p>
@@ -158,7 +112,7 @@ function Profile() {
                 </div>
               )}
 
-              {!loading && !error && posts.length === 0 && (
+              {!isLoading && !error && posts.length === 0 && (
                 <div className="profile-empty rounded p-4 text-center">
                   <p className="mb-2 fw-semibold">
                     Todavía no publicaste nada.
@@ -172,7 +126,7 @@ function Profile() {
                 </div>
               )}
 
-              {!loading && !error && posts.length > 0 && (
+              {!isLoading && !error && posts.length > 0 && (
                 <Stack gap={3}>
                   {posts.map((post) => (
                     <Post
