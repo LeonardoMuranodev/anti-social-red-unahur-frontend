@@ -14,13 +14,11 @@ const almacenamientoDeImagenes = multer.diskStorage({
         cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
-        // usamos fecha de ahora
         const nombreUnico = Date.now() + '-' + Math.round(Math.random() * 1E9);
         cb(null, nombreUnico + path.extname(file.originalname));
     }
 });
 
-// solo aceptamos imgs sino no
 const filtrosImagenes = (req, file, cb) => {
     const archivosPermitidos = ['image/jpeg', 'image/png', 'image/webp']
 
@@ -34,7 +32,7 @@ const filtrosImagenes = (req, file, cb) => {
 const upload = multer({ 
     storage: almacenamientoDeImagenes,
     fileFilter: filtrosImagenes,
-    limits: { fileSize: 5 * 1024 * 1024 } // son 5 MB
+    limits: { fileSize: 5 * 1024 * 1024 }
 });
 
 

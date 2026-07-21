@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const Comment = require("../models/Comment")
-const schemaComentarios = require("../schema/comentarios.schema")
+const schemaComentarios = require("../schema/comments-schema")
 
 const validarComentario = (req, res, next) => {
 
@@ -19,7 +19,7 @@ const validarComentarioId = async (req, res, next) => {
 
     try {
 
-        const { id } = req.params
+        const { commentId } = req.params
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({
@@ -27,26 +27,26 @@ const validarComentarioId = async (req, res, next) => {
             })
         }
 
-        const comentario = await Comment.findById(id)
+        const comment = await Comment.findById(id)
 
-        if (!comentario) {
+        if (!comment) {
             return res.status(404).json({
                 mensaje: "Comentario no encontrado"
             })
         }
 
-        await comentario.populate("user_nickname", "nickname");
-        await comentario.populate("post_id", "_id");
+        await comment.populate("user_nickname", "nickname");
+        await comment.populate("post_id", "_id");
         
-        const comentarioFormateado = {
-            _id: comentario._id,
-            text: comentario.text,
-            is_visible: comentario.is_visible,
-            user_nickname: comentario.user_nickname,
-            post_id: comentario.post_id
+        const commentId = {
+            _id: comment._id,
+            text: comment.text,
+            is_visible: comment.is_visible,
+            user_nickname: comment.user_nickname,
+            post_id: comment.post_id
         };
 
-        req.comentario = comentarioFormateado
+        req.comment = commentId
 
         next()
 
@@ -64,7 +64,7 @@ const validarPublicacionYComentarioId = async (req, res, next) => {
 
     try {
 
-        const { postId, comentarioId } = req.params
+        const { postId, commentId } = req.params
 
         if (
             !mongoose.Types.ObjectId.isValid(postId) ||
@@ -75,18 +75,18 @@ const validarPublicacionYComentarioId = async (req, res, next) => {
             })
         }
 
-        const comentario = await Comment.findOne({
+        const comment = await Comment.findOne({
             _id: comentarioId,
             post_id: postId
         })
 
-        if (!comentario) {
+        if (!comment) {
             return res.status(404).json({
                 mensaje: "Comentario no encontrado o no pertenece a ese post"
             })
         }
 
-        req.comentario = comentario
+        req.comment = comment
 
         next()
 

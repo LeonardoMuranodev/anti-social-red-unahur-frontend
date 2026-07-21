@@ -7,8 +7,8 @@ const agregarEtiqueta = async (req, res) => {
 
     try {
 
-        const post = req.publicacion
-        const tag = req.etiqueta
+        const post = req.post
+        const tag = req.tag
 
         const existe = post.etiquetas.some(
             id => id.toString() === tag._id.toString()
@@ -44,13 +44,13 @@ const obtenerEtiquetasDePost = async (req, res) => {
 
     try {
 
-        const post = await Post.findById(req.publicacion._id)
+        const post = await Post.findById(req.post._id)
         .populate("etiquetas", "name")
 
-        const etiquetas = post.etiquetas.map(tag => tag.name)
+        const tags = post.etiquetas.map(tag => tag.name)
 
         res.status(200).json({
-            etiquetas: etiquetas
+            etiquetas: tags
         })
 
     } catch (error) {
@@ -69,14 +69,14 @@ const eliminarEtiquetaDePost = async (req, res) => {
 
     try {
 
-        const post = req.publicacion
-        const tag = req.etiqueta
+        const post = req.post
+        const tag = req.tag
 
-        const existe = post.etiquetas.some(
+        const exist = post.etiquetas.some(
             id => id.toString() === tag._id.toString()
         )
 
-        if (!existe) {
+        if (!exist) {
             return res.status(404).json({
                 mensaje: "La etiqueta no está asociada a la publicación"
             })

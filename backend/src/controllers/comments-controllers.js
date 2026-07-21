@@ -10,20 +10,20 @@ const obtenerComentarios = async (req, res) => {
     */
 
     try {
-        const comentarios = await Comment.find({})
+        const comments = await Comment.find({})
         .populate("user_nickname", "nickname")
         .populate("post_id", "id")
         .select("-createdAt -updatedAt -__v");
 
-        const comentariosMapeados = comentarios.map(c => ({
+        const commentsMap = comments.map(c => ({
             ...c.toObject(),
             user_nickname: c.user_nickname.nickname,
             post_id: c.post_id._id
         }));
 
-        res.status(200).json(comentariosMapeados)
+        res.status(200).json(commentsMap)
 
-        res.status(200).json(comentarios)
+        res.status(200).json(comments)
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de obtener los comentarios: ${error.message}` })
     }
@@ -48,10 +48,9 @@ const obtenerComentario =  (req, res) => {
 
 
     try {
-        //Deberia quedar igual
-        const comentario = req.comentario
+        const comment = req.comment
 
-        res.status(200).json(comentario)
+        res.status(200).json(comment)
 
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de obtener un comentario por id: ${error.message}` })
@@ -77,28 +76,27 @@ const obtenerComentariosDeUnPost = async (req, res) => {
 
 
     try {
-        const { _id } = req.publicacion
+        const { _id } = req.post
 
-        const mesesLimite = parseInt(process.env.MESES_LIMITE) || 6; 
-        const fechaLimite = new Date();
-        fechaLimite.setMonth(fechaLimite.getMonth() - mesesLimite);
+        const monthLimits = parseInt(process.env.MESES_LIMITE) || 6; 
+        const dayLimit = new Date();
+        dayLimit.setMonth(dayLimit.getMonth() - monthLimits);
 
-        const comentarios = await Comment.find({
+        const comments = await Comment.find({
             post_id: _id,
             is_visible: true,
-            createdAt: { $gte: fechaLimite }
+            createdAt: { $gte: dayLimit }
         }).populate("user_nickname", "nickname")
 
 
-        //puede llegar a cambiar o no usarse esta parte
-        const return_final = comentarios.map(c => ({
+        const final_return = comments.map(c => ({
             id: c._id,
             text: c.text,
             nickname: c.user_nickname?.nickname || "Usuario desconocido"
             })
         )
 
-    res.status(200).json(return_final)
+    res.status(200).json(final_return)
 
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de obtener comentarios de un post: ${error.message}` })
@@ -132,23 +130,23 @@ const crearComentarioEnPost = async (req, res) => {
 
 
     try {
-        const user = req.usuario
+        const user = req.user
 
-        const comentario = await Comment.create({
+        const comment = await Comment.create({
             text: req.body.text,
             is_visible: req.body.is_visible,
             user_nickname: user._id,
             post_id: req.publicacion._id
         })
 
-        const comentarioMapeado = {
-            text: comentario.text,
-            is_visible: comentario.is_visible,
+        const commentMap = {
+            text: comment.text,
+            is_visible: comment.is_visible,
             user_nickname: user.nickname,
-            post_id: comentario.post_id
+            post_id: comment.post_id
         }
 
-        res.status(201).json(comentarioMapeado)
+        res.status(201).json(commentMap)
 
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de crear un comentario: ${error.message}` })
@@ -189,15 +187,15 @@ const editarComentario = async (req, res) => {
 
     try {
         await Comment.findByIdAndUpdate(
-        req.comentario._id,
-      {
-        text: req.body.text,
-        is_visible: req.body.is_visible
-      },
-      {
-        new: true
-      }
-     )
+            req.comentario._id,
+            {
+                text: req.body.text,
+                is_visible: req.body.is_visible
+            },
+            {
+                new: true
+            }
+        )
 
         res.status(200).json({ mensaje: `Comentario actualizado con exito` })
 
@@ -226,7 +224,7 @@ const eliminarComentario = async (req, res) => {
 
     try {
         await Comment.findByIdAndDelete(
-        req.comentario._id
+            req.comentario._id
         )
 
         res.status(200).json({

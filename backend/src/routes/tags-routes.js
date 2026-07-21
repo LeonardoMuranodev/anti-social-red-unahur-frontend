@@ -9,9 +9,9 @@ const {
 const router = Router()
 
 router.get('/', etiquetasController.obtenerEtiquetas)
-router.get('/:id', validarEtiquetaId, etiquetasController.obtenerEtiqueta)
+router.get('/:tagId', validarEtiquetaId, etiquetasController.obtenerEtiqueta)
 router.post('/', validarEtiquetaSchema,  etiquetasController.crearEtiqueta)
-router.put('/:id', validarEtiquetaId, validarEtiquetaSchema, etiquetasController.editarEtiqueta)
-router.delete('/:id', validarEtiquetaId, etiquetasController.eliminarEtiqueta)
+router.put('/:tagId', validarEtiquetaId, validarEtiquetaSchema, etiquetasController.editarEtiqueta)
+router.delete('/:tagId', validarEtiquetaId, etiquetasController.eliminarEtiqueta)
 
 module.exports = router

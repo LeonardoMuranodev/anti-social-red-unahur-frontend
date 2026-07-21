@@ -10,20 +10,20 @@ const obtenerPublicaciones = async (req, res) => {
     */
 
     try {
-        const publicaciones = await Post.find({})
+        const posts = await Post.find({})
         .populate("user_nickname", "nickname")
         .populate("etiquetas", "name")
         .populate("imagenes", "url")
         .select("-createdAt -updatedAt -__v")
 
-        const publicacionesMapeadas = publicaciones.map(p => ({
+        const postsMap = posts.map(p => ({
             ...p.toObject(),
             user_nickname: p.user_nickname ? p.user_nickname.nickname : "Usuario desconocido",
             imagenes: p.imagenes.map(e => e.url),
             etiquetas: p.etiquetas.map(e => e.name)
         }));
 
-        res.status(200).json(publicacionesMapeadas)
+        res.status(200).json(postsMap)
 
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de obtener las publicaciones: ${error.message}` })
@@ -49,21 +49,21 @@ const obtenerPublicacion = async (req, res) => {
 
 
     try {
-        const publicacion = await Post.findById(req.publicacion)
+        const post = await Post.findById(req.post)
         .populate("user_nickname", "nickname")
         .populate("etiquetas", "name")
         .populate("imagenes", "url")
         .select("-createdAt -updatedAt -__v");
 
         
-        const publicacionMapeada = {
-            ...publicacion.toObject(),
-            user_nickname: publicacion.user_nickname.nickname,
-            imagenes: publicacion.imagenes.map(e => e.url),
-            etiquetas: publicacion.etiquetas.map(e => e.name)
+        const postMap = {
+            ...post.toObject(),
+            user_nickname: post.user_nickname.nickname,
+            imagenes: post.imagenes.map(e => e.url),
+            etiquetas: post.etiquetas.map(e => e.name)
         };
 
-        res.status(200).json(publicacionMapeada)
+        res.status(200).json(postMap)
 
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de obtener la publicacion por ID: ${error.message}` })
@@ -96,24 +96,24 @@ const crearPublicacion = async (req, res) => {
 
 
     try {
-        const user = req.usuario
+        const user = req.user
 
-        const publicacion = await Post.create({
+        const post = await Post.create({
             user_nickname: user._id,
             text: req.body.text,
             description: req.body.description
         })
 
-        const publicacionMapeada = {
-            id: publicacion._id,
+        const postMap = {
+            id: post._id,
             user_nickname: user.nickname,
-            text: publicacion.text,
-            description: publicacion.description,
-            imagenes: publicacion.imagenes,
-            etiquetas: publicacion.etiquetas
+            text: post.text,
+            description: post.description,
+            imagenes: post.imagenes,
+            etiquetas: post.etiquetas
         }
 
-        res.status(201).json(publicacionMapeada)
+        res.status(201).json(postMap)
 
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de crear una publicacion: ${error.message}` })
@@ -152,7 +152,7 @@ const editarPublicacion = async (req, res) => {
 
 
     try {
-        const { _id } = req.publicacion
+        const { _id } = req.post
 
         await Post.findByIdAndUpdate(_id,
             {
@@ -187,7 +187,7 @@ const eliminarPublicacion = async (req, res) => {
 
 
     try {
-        const { _id } = req.publicacion
+        const { _id } = req.post
 
         await Post.findByIdAndDelete(_id)
 
@@ -199,8 +199,8 @@ const eliminarPublicacion = async (req, res) => {
 }
 
 const obtenerFeed = async (req, res) => {
-    /* #swagger.tags = ['Usuarios']
-        #swagger.summary = 'Obtiene los detalles de un usuario por su ID'
+    /* #swagger.tags = ['Publicaciones']
+        #swagger.summary = 'Obtiene las publicaciones de los seguidos del usuario'
         #swagger.parameters['id'] = {
             in: 'path',
             description: 'ID cadena de texto del usuario a buscar',
@@ -217,29 +217,25 @@ const obtenerFeed = async (req, res) => {
 
 
     try {
-        const usuarioCompleto = await User.findOne({ nickname: req.usuario.nickname });
+        const user = await User.findOne({ nickname: req.user.nickname });
 
-        const seguidos = usuarioCompleto ? usuarioCompleto.seguidos : []
+        const followed = user ? user.seguidos : []
 
-        console.log(usuarioCompleto, seguidos)
-
-        const publicaciones = await Post.find({user_nickname: { $in: seguidos}})
+        const post = await Post.find({user_nickname: { $in: followed}})
         .populate("user_nickname", "nickname")
         .populate("etiquetas", "name")
         .populate("imagenes", "url")
         .sort({ createdAt: -1 })
         .select("-createdAt -updatedAt -__v")
 
-        console.log(publicaciones)
-
-        const publicacionesMapeadas = publicaciones.map(p => ({
+        const postsMap = post.map(p => ({
             ...p.toObject(),
             user_nickname: p.user_nickname ? p.user_nickname.nickname : "Usuario desconocido",
             imagenes: p.imagenes.map(e => e.url),
             etiquetas: p.etiquetas.map(e => e.name)
         }));
 
-        res.status(200).json(publicacionesMapeadas)
+        res.status(200).json(postsMap)
 
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de obtener el feed del usuario: ${error.message}` })
@@ -247,29 +243,42 @@ const obtenerFeed = async (req, res) => {
 }
 
 const obtenerPublicacionesDelUsuario = async (req, res) => {
+    /* #swagger.tags = ['Publicaciones']
+        #swagger.summary = 'Obtiene las publicaciones de un usuario por su ID'
+        #swagger.parameters['id'] = {
+            in: 'path',
+            description: 'ID cadena de texto del usuario a buscar',
+            required: true,
+            type: 'string'
+        }
+        #swagger.responses[200] = {
+            description: 'Usuario encontrado exitosamente.'
+        }
+        #swagger.responses[404] = {
+            description: 'Usuario no encontrado.'
+        }
+    */
+
     try {
-        const usuarioId = req.usuario._id; 
-
-            console.log(usuarioId)
+        const userId = req.user._id; 
 
 
-        const publicaciones = await Post.find({ user_nickname: usuarioId })
-            .populate("user_nickname", "nickname")
-            .populate("etiquetas", "name")
-            .populate("imagenes", "url")
-            .sort({ createdAt: -1 })
-            .select("-createdAt -updatedAt -__v");
+        const post = await Post.find({ user_nickname: userId })
+        .populate("user_nickname", "nickname")
+        .populate("etiquetas", "name")
+        .populate("imagenes", "url")
+        .sort({ createdAt: -1 })
+        .select("-createdAt -updatedAt -__v");
 
-            console.log(publicaciones)
 
-        const publicacionesMapeadas = publicaciones.map(p => ({
+        const postMap = post.map(p => ({
             ...p.toObject(),
             user_nickname: p.user_nickname.nickname,
             imagenes: p.imagenes.map(e => e.url),
             etiquetas: p.etiquetas.map(e => e.name)
         }));
 
-        res.status(200).json(publicacionesMapeadas);
+        res.status(200).json(postMap);
 
     } catch (error) {
         res.status(500).json({ error: `Error al obtener tus publicaciones: ${error.message}` });

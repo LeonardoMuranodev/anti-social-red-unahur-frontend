@@ -7,19 +7,19 @@ const agregarImagenAPost = async (req, res) => {
 
     try {
 
-        const publicacion = req.publicacion
+        const post = req.publicacion
 
         const imageUrl = `/uploads/${req.file.filename}`
 
-        publicacion.imagenes.push({
+        post.imagenes.push({
             url: imageUrl
         })
 
-        await publicacion.save()
+        await post.save()
 
         res.status(201).json({
             mensaje: "Imagen agregada correctamente",
-            publicacion_id: publicacion._id,
+            publicacion_id: post._id,
             nueva_imagen: imageUrl
         })
 
@@ -40,15 +40,15 @@ const obtenerImagenesDeUnPost = async (req, res) => {
 
     try {
 
-        const publicacion = req.publicacion
+        const post = req.publicacion
 
-        const imagenes = publicacion.imagenes.map(i => ({
+        const images = post.imagenes.map(i => ({
             id: i._id,
             url: i.url
         }))
 
         res.status(200).json({
-            imagenes: imagenes
+            imagenes: images
         })
 
     } catch (error) {
@@ -69,14 +69,14 @@ const eliminarImagen = async (req, res) => {
 
     try {
 
-        const publicacion = req.publicacion
+        const post = req.publicacion
         const { imageId } = req.params
 
-        publicacion.imagenes = publicacion.imagenes.filter(
+        post.imagenes = post.imagenes.filter(
             imagen => imagen._id.toString() !== imageId
         )
 
-        await publicacion.save()
+        await post.save()
 
         res.status(200).json({
             mensaje: "Imagen eliminada con éxito"

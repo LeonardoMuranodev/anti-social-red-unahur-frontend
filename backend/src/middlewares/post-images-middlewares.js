@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const Post = require("../models/Post")
-const schemaImagen = require("../schema/publicacionImagen.schema")
+const schemaImagen = require("../schema/post-images-schema")
 
 const validarImagen = (req, res, next) => {
 
@@ -30,26 +30,26 @@ const validarPublicacionEImagenId = async (req, res, next) => {
             })
         }
 
-        const publicacion = await Post.findById(postId)
+        const post = await Post.findById(postId)
 
-        if (!publicacion) {
+        if (!post) {
             return res.status(404).json({
                 mensaje: "Publicación no encontrada"
             })
         }
 
-        const imagen = publicacion.imagenes.find(
+        const image = post.imagenes.find(
             img => img._id.toString() === imageId
         )
 
-        if (!imagen) {
+        if (!image) {
             return res.status(404).json({
                 mensaje: "Imagen no encontrada o no pertenece a esta publicación"
             })
         }
 
-        req.publicacion = publicacion
-        req.imagen = imagen
+        req.post = post
+        req.image = image
 
         next()
 

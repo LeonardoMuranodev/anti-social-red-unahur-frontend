@@ -11,8 +11,8 @@ const {
 
 const router = Router()
 router.get('/',followController.obtenerFollows)
-router.get('/:user',validarUsuarioExistente, followController.obtenerFollowsDeUser)
-router.post('/:user',validarUsuarioExistente, validarEsquemaFollow, validarFollowedUser, validarConexionExistente, followController.crearFollow)
-router.delete('/:user',validarUsuarioExistente, validarEsquemaFollow, validarFollowedUser, validarConexionInexistente, followController.eliminarFollow)
+router.get('/:userId',validarUsuarioExistente, followController.obtenerFollowsDeUser)
+router.post('/:userId',validarUsuarioExistente, validarEsquemaFollow, validarFollowedUser, validarConexionExistente, followController.crearFollow)
+router.delete('/:userId',validarUsuarioExistente, validarEsquemaFollow, validarFollowedUser, validarConexionInexistente, followController.eliminarFollow)
 
 module.exports = router

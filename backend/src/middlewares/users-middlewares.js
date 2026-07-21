@@ -1,5 +1,5 @@
 const User = require("../models/User")
-const schemaUsuarios = require("../schema/usuarios.schema")
+const schemaUsuarios = require("../schema/usuarios-schema")
 
 const validarUsuarioSchema = (req, res, next) => {
     const { error } = schemaUsuarios.validate(req.body)
@@ -15,12 +15,10 @@ const validarUsuarioSchema = (req, res, next) => {
 
 const validarUsuarioId = async (req, res, next) => {
     try {
-        const { id } = req.params
         const { userId } = req.params
 
-        const idValido = id || userId
 
-        const usuario = await User.findOne({ nickname: idValido })
+        const usuario = await User.findOne({ nickname: userId })
             .populate('seguidores', 'nickname')
             .populate('seguidos', 'nickname')
             .select("-password");
@@ -47,21 +45,21 @@ const validarUsuarioExistenteEnBody = async (req, res, next) => {
         const { user_nickname } = req.body
         const { nickname } = req.body
 
-        const nombre =  user_nickname ? user_nickname : nickname
+        const name =  user_nickname ? user_nickname : nickname
         console.log(nombre)
 
-        const usuario = await User.findOne({
-            nickname: nombre
+        const user = await User.findOne({
+            nickname: name
         }).populate('seguidores', 'nickname')
             .populate('seguidos', 'nickname')
 
-        if (!usuario) {
+        if (!user) {
             return res.status(404).json({
                 mensaje: " El usuario no existe en la base de datos"
             })
         }
 
-        req.usuario = usuario
+        req.user = user
 
         next()
 
@@ -74,16 +72,16 @@ const validarUsuarioExistenteEnBody = async (req, res, next) => {
 
 const validarContraseniaDeUsuario = async (req, res, next) => {
     try {
-        const usuario = req.usuario
+        const user = req.usuario
 
-        console.log(usuario.password, "<>", req.body.password)
-        if (!usuario) {
+        console.log(user.password, "<>", req.body.password)
+        if (!user) {
             return res.status(404).json({
                 mensaje: "el usuario no existe en la base de datos"
             })
         }
 
-        if (usuario.password !== req.body.password) {
+        if (user.password !== req.body.password) {
             return res.status(403).json({
                 mensaje: "La contraseña es incorrecta"
             })

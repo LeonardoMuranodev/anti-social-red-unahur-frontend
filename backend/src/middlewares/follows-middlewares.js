@@ -18,7 +18,7 @@ const validarUsuarioExistente = async (req, res, next) => {
 
     try {
 
-        const { user } = req.params
+        const { userId } = req.params
 
         const usuario = await User.findOne({
             nickname: user
@@ -50,17 +50,17 @@ const validarFollowedUser = async (req, res, next) => {
 
         const { followed_user_nickname } = req.body
 
-        const seguido = await User.findOne({
+        const followed = await User.findOne({
             nickname: followed_user_nickname
         })
 
-        if (!seguido) {
+        if (!followed) {
             return res.status(404).json({
                 mensaje: "Usuario a seguir inexistente"
             })
         }
 
-        req.followedUser = seguido
+        req.followedUser = followed
 
         next()
 
@@ -94,14 +94,14 @@ const validarConexionExistente = async (req, res, next) => {
 
 const validarConexionInexistente = async (req, res, next) => {
 
-    const seguidor = req.user
-    const seguido = req.followedUser
+    const follower = req.user
+    const followed = req.followedUser
 
-    const existe = seguidor.seguidos.some(
-        id => id.toString() === seguido._id.toString()
+    const exist = follower.seguidos.some(
+        id => id.toString() === followed._id.toString()
     )
 
-    if (!existe) {
+    if (!exist) {
         return res.status(400).json({
             mensaje: "No existe el seguimiento para eliminar."
         })

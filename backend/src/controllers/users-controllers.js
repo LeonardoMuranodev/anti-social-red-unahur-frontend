@@ -10,8 +10,8 @@ const obtenerUsuarios = async (req, res) => {
 
 
     try {
-        const usuarios = await User.find({}).select("-createdAt -updatedAt -__v -_id -password")
-        res.status(200).json(usuarios)
+        const users = await User.find({}).select("-createdAt -updatedAt -__v -_id -password")
+        res.status(200).json(users)
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de obtener los usuarios: ${error.message}` })
     }
@@ -36,9 +36,9 @@ const obtenerUsuario = async (req, res) => {
 
 
     try {
-        const usuario =  req.usuario
+        const user =  req.usuario
 
-        res.status(200).json(usuario)
+        res.status(200).json(user)
 
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de obtener el usuario: ${error.message}` })
@@ -69,18 +69,18 @@ const crearUsuario = async (req, res) => {
 
 
     try {
-        const usuario = await User.create({
+        const user = await User.create({
             nickname: req.body.nickname,
             password: req.body.password
         })
 
-        const usuarioMapeado = {
-            nickname: usuario.nickname,
-            seguidores: usuario.seguidores,
-            seguidos: usuario.seguidos
+        const userMap = {
+            nickname: user.nickname,
+            seguidores: user.seguidores,
+            seguidos: user.seguidos
         }
 
-        res.status(201).json(usuarioMapeado)
+        res.status(201).json(userMap)
 
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de crear el usuario: ${error.message}` })
@@ -128,16 +128,16 @@ const loginUsuario = async (req, res) => {
 
 
     try {
-        const usuario = req.usuario
+        const user = req.usuario
 
-        const usuarioMapeado = {
-            id: usuario._id,
-            nickname: usuario.nickname,
-            seguidores: usuario.seguidores,
-            seguidos: usuario.seguidos
+        const userMap = {
+            id: user._id,
+            nickname: user.nickname,
+            seguidores: user.seguidores,
+            seguidos: user.seguidos
         }
 
-        res.status(200).json(usuarioMapeado)
+        res.status(200).json(userMap)
 
     } catch (error) {
         res.status(500).json({ error: `Hubo un error a la hora de crear el usuario: ${error.message}` })
@@ -176,7 +176,6 @@ const editarUsuario = async (req, res) => {
 
 
     try {
-        //nickname validado viejo
 
         await User.findByIdAndUpdate(
             req.usuario._id,
@@ -214,7 +213,7 @@ const eliminarUsuario = async (req, res) => {
         const {nickname} = req.usuario
 
         await User.findOneAndDelete({
-        nickname: nickname
+            nickname: nickname
         })
         res.status(200).json({
             mensaje: 'Usuario eliminado exitosamente'

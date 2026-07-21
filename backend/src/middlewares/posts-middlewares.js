@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const Post = require("../models/Post")
-const schemaPublicaciones = require("../schema/publicaciones.schema")
+const schemaPublicaciones = require("../schema/posts-schema")
 
 const validarPublicacion = (req, res, next) => {
 
@@ -19,23 +19,23 @@ const validarPublicacionId = async (req, res, next) => {
 
     try {
 
-        const { id } = req.params
+        const { postId } = req.params
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({
-                mensaje: "Id de publicación inválido"
-            })
-        }
-
-        const publicacion = await Post.findById(id)
-
-        if (!publicacion) {
             return res.status(404).json({
                 mensaje: "Publicación no encontrada"
             })
         }
 
-        req.publicacion = publicacion
+        const post = await Post.findById(id)
+
+        if (!post) {
+            return res.status(404).json({
+                mensaje: "Publicación no encontrada"
+            })
+        }
+
+        req.post = post
 
         next()
 

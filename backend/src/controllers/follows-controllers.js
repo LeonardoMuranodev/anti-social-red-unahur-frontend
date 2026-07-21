@@ -10,11 +10,11 @@ const obtenerFollows = async (req, res) => {
 
     try {
 
-        const usuarios = await User.find({})
+        const users = await User.find({})
             .populate("seguidos", "nickname")
             .select("nickname seguidos")
 
-        res.status(200).json(usuarios)
+        res.status(200).json(users)
 
     } catch (error) {
 
@@ -91,23 +91,23 @@ const crearFollow = async (req, res) => {
 
     try {
 
-        const seguidor = req.user
-        const seguido = req.followedUser
+        const follower = req.user
+        const followed = req.followedUser
 
         await User.findByIdAndUpdate(
-            seguidor._id,
+            follower._id,
             {
                 $addToSet: {
-                    seguidos: seguido._id
+                    seguidos: followed._id
                 }
             }
         )
 
         await User.findByIdAndUpdate(
-            seguido._id,
+            followed._id,
             {
                 $addToSet: {
-                    seguidores: seguidor._id
+                    seguidores: follower._id
                 }
             }
         )
@@ -159,23 +159,23 @@ const eliminarFollow = async (req, res) => {
 
     try {
 
-        const seguidor = req.user
-        const seguido = req.followedUser
+        const follower = req.user
+        const followed = req.followedUser
 
         await User.findByIdAndUpdate(
-            seguidor._id,
+            follower._id,
             {
                 $pull: {
-                    seguidos: seguido._id
+                    seguidos: followed._id
                 }
             }
         )
 
         await User.findByIdAndUpdate(
-            seguido._id,
+            followed._id,
             {
                 $pull: {
-                    seguidores: seguidor._id
+                    seguidores: follower._id
                 }
             }
         )

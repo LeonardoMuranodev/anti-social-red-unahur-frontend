@@ -19,7 +19,7 @@ const validarEtiquetaId = async (req, res, next) => {
 
     try {
 
-        const { id } = req.params
+        const { tagId } = req.params
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({
@@ -27,15 +27,15 @@ const validarEtiquetaId = async (req, res, next) => {
             })
         }
 
-        const etiqueta = await Tag.findById(id)
+        const tag = await Tag.findById(id)
 
-        if (!etiqueta) {
+        if (!tag) {
             return res.status(404).json({
                 mensaje: "Etiqueta no encontrada"
             })
         }
 
-        req.etiqueta = etiqueta
+        req.tag = tag
 
         next()
 

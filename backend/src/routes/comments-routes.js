@@ -9,8 +9,8 @@ const {
 const router = Router()
 
 router.get('/', comentariosController.obtenerComentarios)
-router.get('/:id', validarComentarioId, comentariosController.obtenerComentario)
-router.put('/:id', validarComentarioId, validarComentario, comentariosController.editarComentario)
-router.delete('/:id', validarComentarioId, comentariosController.eliminarComentario)
+router.get('/:commentId', validarComentarioId, comentariosController.obtenerComentario)
+router.put('/:commentId', validarComentarioId, validarComentario, comentariosController.editarComentario)
+router.delete('/:commentId', validarComentarioId, comentariosController.eliminarComentario)
 
 module.exports = router

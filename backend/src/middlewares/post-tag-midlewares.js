@@ -17,24 +17,24 @@ const validarPublicacionIdYEtiquetaId = async (req, res, next) => {
             })
         }
 
-        const etiqueta = await Tag.findById(tagId)
+        const tag = await Tag.findById(tagId)
 
-        if (!etiqueta) {
+        if (!tag) {
             return res.status(404).json({
                 mensaje: "Etiqueta no encontrada"
             })
         }
 
-        const publicacion = await Post.findById(postId)
+        const post = await Post.findById(postId)
 
-        if (!publicacion) {
+        if (!post) {
             return res.status(404).json({
                 mensaje: "Publicación no encontrada"
             })
         }
 
-        req.etiqueta = etiqueta
-        req.publicacion = publicacion
+        req.tag = etiqueta
+        req.post = post
 
         next()
 
