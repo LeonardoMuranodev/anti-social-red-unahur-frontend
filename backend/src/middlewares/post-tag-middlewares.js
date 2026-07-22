@@ -1,8 +1,8 @@
-const mongoose = require("mongoose")
-const Tag = require("../models/Tag")
-const Post = require("../models/Post")
+import {mongoose} from "mongoose"
+import Tag from "../models/Tag.js"
+import Post from "../models/Post.js"
 
-const validarPublicacionIdYEtiquetaId = async (req, res, next) => {
+export const validatePostAndTagId = async (req, res, next) => {
 
     try {
 
@@ -33,7 +33,7 @@ const validarPublicacionIdYEtiquetaId = async (req, res, next) => {
             })
         }
 
-        req.tag = etiqueta
+        req.tag = tag
         req.post = post
 
         next()
@@ -47,5 +47,3 @@ const validarPublicacionIdYEtiquetaId = async (req, res, next) => {
     }
 
 }
-
-module.exports = validarPublicacionIdYEtiquetaId

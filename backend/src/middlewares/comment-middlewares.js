@@ -1,10 +1,10 @@
-const mongoose = require("mongoose")
-const Comment = require("../models/Comment")
-const schemaComentarios = require("../schema/comments-schema")
+import {mongoose} from "mongoose"
+import Comment from "../models/Comment.js"
+import {commentSchema} from "../schema/comments-schema.js"
 
-const validarComentario = (req, res, next) => {
+export const validateComment = (req, res, next) => {
 
-    const { error } = schemaComentarios.validate(req.body)
+    const { error } = commentSchema.validate(req.body)
 
     if (error) {
         return res.status(400).json({
@@ -15,19 +15,19 @@ const validarComentario = (req, res, next) => {
     next()
 }
 
-const validarComentarioId = async (req, res, next) => {
+export const validateCommentId = async (req, res, next) => {
 
     try {
 
         const { commentId } = req.params
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(commentId)) {
             return res.status(400).json({
                 mensaje: "Id de comentario inválido"
             })
         }
 
-        const comment = await Comment.findById(id)
+        const comment = await Comment.findById(commentId)
 
         if (!comment) {
             return res.status(404).json({
@@ -60,7 +60,7 @@ const validarComentarioId = async (req, res, next) => {
 
 }
 
-const validarPublicacionYComentarioId = async (req, res, next) => {
+export const validatePostAndCommentId = async (req, res, next) => {
 
     try {
 
@@ -68,7 +68,7 @@ const validarPublicacionYComentarioId = async (req, res, next) => {
 
         if (
             !mongoose.Types.ObjectId.isValid(postId) ||
-            !mongoose.Types.ObjectId.isValid(comentarioId)
+            !mongoose.Types.ObjectId.isValid(commentId)
         ) {
             return res.status(400).json({
                 mensaje: "Id inválido"
@@ -76,7 +76,7 @@ const validarPublicacionYComentarioId = async (req, res, next) => {
         }
 
         const comment = await Comment.findOne({
-            _id: comentarioId,
+            _id: commentId,
             post_id: postId
         })
 
@@ -98,10 +98,4 @@ const validarPublicacionYComentarioId = async (req, res, next) => {
 
     }
 
-}
-
-module.exports = {
-    validarComentario,
-    validarComentarioId,
-    validarPublicacionYComentarioId
 }

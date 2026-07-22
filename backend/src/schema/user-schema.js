@@ -1,6 +1,6 @@
-const Joi = require("joi")
+import Joi from "joi"
 
-const schemaUsuarios = Joi.object({
+export const userSchema = Joi.object({
     nickname: Joi.string().min(3).max(50).required(),
 
     password: Joi.string().min(3).required().messages({
@@ -8,5 +8,3 @@ const schemaUsuarios = Joi.object({
         "string.min": "La contraseña debe tener al menos 6 caracteres"
     })
 })
-
-module.exports = schemaUsuarios

@@ -1,6 +1,6 @@
-const Joi = require("joi")
+import Joi from "joi";
 
-const schemaPublicaciones = Joi.object( {
+export const postSchema = Joi.object( {
     user_nickname: Joi.string().min(3).max(50).required().messages({
         "string.base": "El campo user_nickname es obligatorio y debe ser texto",
         "string.empty": "El campo user_nickname es obligatorio",
@@ -16,5 +16,3 @@ const schemaPublicaciones = Joi.object( {
         "string.min": "El campo description debe tener al menos 3 caracteres"
     })
 })
-
-module.exports = schemaPublicaciones

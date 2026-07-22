@@ -1,10 +1,10 @@
-const mongoose = require("mongoose")
-const Post = require("../models/Post")
-const schemaPublicaciones = require("../schema/posts-schema")
+import {mongoose } from "mongoose"
+import Post from "../models/Post.js"
+import {postSchema} from "../schema/post-schema.js"
 
-const validarPublicacion = (req, res, next) => {
+export const validatePost = (req, res, next) => {
 
-    const { error } = schemaPublicaciones.validate(req.body)
+    const { error } = postSchema.validate(req.body)
 
     if (error) {
         return res.status(400).json({
@@ -15,19 +15,19 @@ const validarPublicacion = (req, res, next) => {
     next()
 }
 
-const validarPublicacionId = async (req, res, next) => {
+export const validatePostId = async (req, res, next) => {
 
     try {
 
         const { postId } = req.params
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(postId)) {
             return res.status(404).json({
                 mensaje: "Publicación no encontrada"
             })
         }
 
-        const post = await Post.findById(id)
+        const post = await Post.findById(postId)
 
         if (!post) {
             return res.status(404).json({
@@ -47,9 +47,4 @@ const validarPublicacionId = async (req, res, next) => {
 
     }
 
-}
-
-module.exports = {
-    validarPublicacion,
-    validarPublicacionId
 }

@@ -1,8 +1,8 @@
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+import multer from 'node:multer';
+import path from 'node:path'
+import fs from 'node:fs';
 
-const almacenamientoDeImagenes = multer.diskStorage({
+const imageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
 
         const dir = 'uploads/';
@@ -14,37 +14,31 @@ const almacenamientoDeImagenes = multer.diskStorage({
         cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
-        const nombreUnico = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, nombreUnico + path.extname(file.originalname));
+        const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueName + path.extname(file.originalname));
     }
 });
 
-const filtrosImagenes = (req, file, cb) => {
-    const archivosPermitidos = ['image/jpeg', 'image/png', 'image/webp']
+const imageFilters = (req, file, cb) => {
+    const filesAllowed = ['image/jpeg', 'image/png', 'image/webp']
 
-    if (archivosPermitidos.includes(file.mimetype)) {
+    if (filesAllowed.includes(file.mimetype)) {
         cb(null, true);
     } else {
         cb(new Error('El archivo no es una imagen válida'), false);
     }
 };
 
-const upload = multer({ 
-    storage: almacenamientoDeImagenes,
-    fileFilter: filtrosImagenes,
+export const upload = multer({ 
+    storage: imageStorage,
+    fileFilter: imageFilters,
     limits: { fileSize: 5 * 1024 * 1024 }
 });
 
 
-const validarArchivoExistente = (req, res, next) => {
+export const validateExistingFile = (req, res, next) => {
     if (!req.file) {
         return res.status(400).json({ mensaje: "No se proporcionó ninguna imagen" });
     }
     next();
 };
-
-
-module.exports = {
-    upload,
-    validarArchivoExistente
-}

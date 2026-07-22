@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     nickname: {
       type: String,
@@ -8,19 +8,16 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       unique: true,
     },
-
     password: {
       type: String,
       required: [true, "El campo password es obligatorio"],
       trim: true,
     },
-
-    seguidores: [{
+    followers: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     }],
-
-    seguidos: [{
+    following: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     }]
@@ -28,4 +25,4 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", UserSchema);
+export default mongoose.model("User", userSchema);

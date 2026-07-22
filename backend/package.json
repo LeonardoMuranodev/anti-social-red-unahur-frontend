@@ -17,7 +17,7 @@
     "url": "git+https://github.com/EP-UnaHur-2026C1/anti-social-relational-tp-npm_install_milagro.git"
   },
   "keywords": [],
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/EP-UnaHur-2026C1/anti-social-relational-tp-npm_install_milagro/issues"
   },

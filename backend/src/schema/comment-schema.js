@@ -1,6 +1,6 @@
-const Joi = require("joi")
+import Joi from "joi";
 
-const schemaComentarios = Joi.object( {
+export const commentSchema = Joi.object( {
     text: Joi.string().min(3).max(50).required().messages({
         "string.base": "El campo text es obligatorio y debe ser texto",
         "string.empty": "El campo text es obligatorio",
@@ -16,5 +16,3 @@ const schemaComentarios = Joi.object( {
         "string.min": "El campo user_nickname debe tener al menos 3 caracteres"
     }),
 })
-
-module.exports = schemaComentarios

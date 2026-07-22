@@ -1,10 +1,10 @@
-const mongoose = require("mongoose")
-const Post = require("../models/Post")
-const schemaImagen = require("../schema/post-images-schema")
+import {mongoose} from "mongoose"
+import Post from "../models/Post.js"
+import {imageSchema} from "../schema/post-image-schema.js"
 
-const validarImagen = (req, res, next) => {
+export const validateImage = (req, res, next) => {
 
-    const { error } = schemaImagen.validate(req.body)
+    const { error } = imageSchema.validate(req.body)
 
     if (error) {
         return res.status(400).json({
@@ -15,7 +15,7 @@ const validarImagen = (req, res, next) => {
     next()
 }
 
-const validarPublicacionEImagenId = async (req, res, next) => {
+export const validatePostAndImageId = async (req, res, next) => {
 
     try {
 
@@ -61,9 +61,4 @@ const validarPublicacionEImagenId = async (req, res, next) => {
 
     }
 
-}
-
-module.exports = {
-    validarImagen,
-    validarPublicacionEImagenId
 }

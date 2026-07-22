@@ -1,8 +1,8 @@
-const User = require("../models/User")
-const schemaUsuarios = require("../schema/usuarios-schema")
+import User from "../models/User.js"
+import {userSchema} from "../schema/usuarios-schema.js"
 
-const validarUsuarioSchema = (req, res, next) => {
-    const { error } = schemaUsuarios.validate(req.body)
+export const validateUserSchema = (req, res, next) => {
+    const { error } = userSchema.validate(req.body)
 
     if (error) {
         return res.status(400).json({
@@ -13,23 +13,23 @@ const validarUsuarioSchema = (req, res, next) => {
     next()
 }
 
-const validarUsuarioId = async (req, res, next) => {
+export const validateUserId = async (req, res, next) => {
     try {
         const { userId } = req.params
 
 
-        const usuario = await User.findOne({ nickname: userId })
+        const user = await User.findOne({ nickname: userId })
             .populate('seguidores', 'nickname')
             .populate('seguidos', 'nickname')
             .select("-password");
 
-        if (!usuario) {
+        if (!user) {
             return res.status(404).json({
                 mensaje: "Usuario no encontrado"
             })
         }
 
-        req.usuario = usuario
+        req.user = user
 
         next()
 
@@ -40,13 +40,13 @@ const validarUsuarioId = async (req, res, next) => {
     }
 }
 
-const validarUsuarioExistenteEnBody = async (req, res, next) => {
+export const validateUserExistsInBody = async (req, res, next) => {
     try {
         const { user_nickname } = req.body
         const { nickname } = req.body
 
         const name =  user_nickname ? user_nickname : nickname
-        console.log(nombre)
+        console.log(name)
 
         const user = await User.findOne({
             nickname: name
@@ -70,9 +70,9 @@ const validarUsuarioExistenteEnBody = async (req, res, next) => {
     }
 }
 
-const validarContraseniaDeUsuario = async (req, res, next) => {
+export const validateUserPassword = async (req, res, next) => {
     try {
-        const user = req.usuario
+        const user = req.user
 
         console.log(user.password, "<>", req.body.password)
         if (!user) {
@@ -94,11 +94,4 @@ const validarContraseniaDeUsuario = async (req, res, next) => {
             error: error.message
         })
     }
-}
-
-module.exports = {
-    validarUsuarioId,
-    validarUsuarioSchema,
-    validarUsuarioExistenteEnBody,
-    validarContraseniaDeUsuario
 }

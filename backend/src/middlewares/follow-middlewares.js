@@ -1,9 +1,9 @@
-const User = require("../models/User")
-const schemaFollows = require("../schema/follows.schema")
+import User from "../models/User.js"
+import {followSchema} from "../schema/follow-schema.js"
 
-const validarEsquemaFollow = (req, res, next) => {
+export const validateFollowSchema = (req, res, next) => {
 
-    const { error } = schemaFollows.validate(req.body)
+    const { error } = followSchema.validate(req.body)
 
     if (error) {
         return res.status(400).json({
@@ -14,23 +14,23 @@ const validarEsquemaFollow = (req, res, next) => {
     next()
 }
 
-const validarUsuarioExistente = async (req, res, next) => {
+export const validateExistingUser = async (req, res, next) => {
 
     try {
 
         const { userId } = req.params
 
-        const usuario = await User.findOne({
-            nickname: user
+        const user = await User.findOne({
+            nickname: userId
         })
 
-        if (!usuario) {
+        if (!user) {
             return res.status(404).json({
                 mensaje: "Usuario inexistente"
             })
         }
 
-        req.user = usuario
+        req.user = user
 
         next()
 
@@ -44,7 +44,7 @@ const validarUsuarioExistente = async (req, res, next) => {
 
 }
 
-const validarFollowedUser = async (req, res, next) => {
+export const validarFollowedUser = async (req, res, next) => {
 
     try {
 
@@ -74,16 +74,16 @@ const validarFollowedUser = async (req, res, next) => {
 
 }
 
-const validarConexionExistente = async (req, res, next) => {
+const validateExistingConnection = async (req, res, next) => {
 
-    const seguidor = req.user
-    const seguido = req.followedUser
+    const follower = req.user
+    const followed = req.followedUser
 
-    const existe = seguidor.seguidos.some(
-        id => id.toString() === seguido._id.toString()
+    const exist = follower.seguidos.some(
+        id => id.toString() === followed._id.toString()
     )
 
-    if (existe) {
+    if (exist) {
         return res.status(400).json({
             mensaje: "El seguimiento ya existe."
         })
@@ -92,7 +92,7 @@ const validarConexionExistente = async (req, res, next) => {
     next()
 }
 
-const validarConexionInexistente = async (req, res, next) => {
+export const validateNonExistingConnection = async (req, res, next) => {
 
     const follower = req.user
     const followed = req.followedUser
@@ -108,12 +108,4 @@ const validarConexionInexistente = async (req, res, next) => {
     }
 
     next()
-}
-
-module.exports = {
-    validarEsquemaFollow,
-    validarUsuarioExistente,
-    validarFollowedUser,
-    validarConexionExistente,
-    validarConexionInexistente
 }

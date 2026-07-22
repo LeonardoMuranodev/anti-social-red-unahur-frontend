@@ -1,12 +1,14 @@
 // Funcion para conectar con la BD de redis
-const {createClient} = require("redis")
-require("dotenv").config()
+import {createClient} from "redis"
+import dotenv from "dotenv"
 
-const redisClient = createClient( {
+dotenv.config()
+
+export const redisClient = createClient( {
     url: process.env.REDIS_URI || "redis://localhost:6379"
 })
 
-const conectarRedis = async () => {
+export const connectRedis = async () => {
     try {
         // Hay que pasarle la URL para conectarse a la BD por var de entornos
         await redisClient.connect()
@@ -14,9 +16,4 @@ const conectarRedis = async () => {
     } catch(error) {
         console.error("Error a la hora de conectar con Redis: ", error)
     }
-}
-
-module.exports = {
-    redisClient,
-    conectarRedis
 }

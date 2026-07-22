@@ -1,13 +1,15 @@
-const express = require("express");
+import express from "express";
 const app = express();
-const cors = require('cors');
-const conectarDB = require("./config/db");
-const { conectarRedis } = require("./config/redis");
+import cors from 'cors';
+import {connectDB} from "./config/db.js";
+import { connectRedis } from "./config/redis.js";
 
-const swaggerUI = require("swagger-ui-express");
-const swaggerFile = require("./swagger-output.json");
+import swaggerUI from "swagger-ui-express";
+import swaggerFile from "./swagger-output.json" assert { type: "json" };
 
-require("dotenv").config();
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const PORT = process.env.PORT || 3000;
 
@@ -19,18 +21,18 @@ app.use(cors({
 
 app.use(express.json());
 
-const routerPublicaciones = require("./routes/publicaciones.routes");
-const routerUsuarios = require("./routes/usuarios.routes");
-const routerEtiqueta = require("./routes/etiquetas.routes");
-const routerComentarios = require("./routes/comentarios.routes");
-const routerFollows = require("./routes/follow.routes");
+import { router as postRouter } from "./routes/post.routes.js";
+import { router as userRouter } from "./routes/user.routes.js";
+import { router as tagRouter } from "./routes/tag.routes.js";
+import { router as commentRouter } from "./routes/comment.routes.js";
+import { router as followRouter } from "./routes/follow.routes.js";
 
 
-app.use("/publicaciones", routerPublicaciones);
-app.use("/usuarios", routerUsuarios);
-app.use("/etiquetas", routerEtiqueta);
-app.use("/comentarios", routerComentarios);
-app.use("/seguidos", routerFollows);
+app.use("/publicaciones", postRouter);
+app.use("/usuarios", userRouter);
+app.use("/etiquetas", tagRouter);
+app.use("/comentarios", commentRouter);
+app.use("/seguidos", followRouter);
 
 
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
@@ -38,8 +40,8 @@ app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 app.use('/uploads', express.static('uploads'));
 
-conectarRedis();
-conectarDB(); 
+connectRedis();
+connectDB(); 
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);

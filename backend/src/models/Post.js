@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import{ mongoose } from "mongoose";
 
-const PostImageSchema = new mongoose.Schema(
+const postImageSchema = new mongoose.Schema(
   {
     url: {
       type: String,
@@ -11,7 +11,7 @@ const PostImageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const PostSchema = new mongoose.Schema(
+const postSchema = new mongoose.Schema(
   {
     user_nickname: {
       type: mongoose.Schema.Types.ObjectId,
@@ -28,8 +28,8 @@ const PostSchema = new mongoose.Schema(
       type: String,
       trim: true
     },
-    imagenes: [PostImageSchema],
-    etiquetas: [{
+    images: [PostImageSchema],
+    tags: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Tag"
     }]
@@ -37,4 +37,4 @@ const PostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Post", PostSchema);
+export default mongoose.model("Post", postSchema);

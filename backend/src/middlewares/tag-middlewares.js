@@ -1,10 +1,10 @@
-const mongoose = require("mongoose")
-const Tag = require("../models/Tag")
-const schemaEtiquetas = require("../schema/etiquetas.schema")
+import {mongoose} from "mongoose"
+import Tag from "../models/Tag.js"
+import {tagSchema} from "../schema/tag-schema.js"
 
-const validarEtiquetaSchema = (req, res, next) => {
+export const validateTagSchema = (req, res, next) => {
 
-    const { error } = schemaEtiquetas.validate(req.body)
+    const { error } = tagSchema.validate(req.body)
 
     if (error) {
         return res.status(400).json({
@@ -15,19 +15,19 @@ const validarEtiquetaSchema = (req, res, next) => {
     next()
 }
 
-const validarEtiquetaId = async (req, res, next) => {
+export const validateTagId = async (req, res, next) => {
 
     try {
 
         const { tagId } = req.params
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(tagId)) {
             return res.status(400).json({
                 mensaje: "Id de etiqueta inválido"
             })
         }
 
-        const tag = await Tag.findById(id)
+        const tag = await Tag.findById(tagId)
 
         if (!tag) {
             return res.status(404).json({
@@ -47,9 +47,4 @@ const validarEtiquetaId = async (req, res, next) => {
 
     }
 
-}
-
-module.exports = {
-    validarEtiquetaSchema,
-    validarEtiquetaId
 }
